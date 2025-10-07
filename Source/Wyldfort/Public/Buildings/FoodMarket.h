@@ -1,0 +1,20 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "Buildings/BaseBuilding.h"
+#include "FoodMarket.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class WYLDFORT_API AFoodMarket : public ABaseBuilding
+{
+	GENERATED_BODY()
+
+public:
+	AFoodMarket();
+
+};
