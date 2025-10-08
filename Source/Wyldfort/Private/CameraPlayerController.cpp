@@ -9,7 +9,7 @@
 
 ACameraPlayerController::ACameraPlayerController()
 {
-    EnableDebug();
+    //EnableDebug();
 
     bShowMouseCursor = true;
     bEnableClickEvents = true;

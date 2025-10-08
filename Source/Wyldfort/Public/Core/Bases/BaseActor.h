@@ -5,16 +5,16 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Utils/Logger.h"
-#include "WyldfortBaseActor.generated.h"
+#include "BaseActor.generated.h"
 
 UCLASS()
-class WYLDFORT_API AWyldfortBaseActor : public AActor, public FLogger
+class WYLDFORT_API ABaseActor : public AActor, public FLogger
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AWyldfortBaseActor();
+	ABaseActor();
 
 protected:
 	// Called when the game starts or when spawned

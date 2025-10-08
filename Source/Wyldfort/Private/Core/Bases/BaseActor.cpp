@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "WyldfortBaseActor.h"
+#include "Core/Bases/BaseActor.h"
 
 // Sets default values
-AWyldfortBaseActor::AWyldfortBaseActor()
+ABaseActor::ABaseActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -12,14 +12,14 @@ AWyldfortBaseActor::AWyldfortBaseActor()
 }
 
 // Called when the game starts or when spawned
-void AWyldfortBaseActor::BeginPlay()
+void ABaseActor::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void AWyldfortBaseActor::Tick(float DeltaTime)
+void ABaseActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

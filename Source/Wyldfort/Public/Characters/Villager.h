@@ -3,15 +3,31 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WyldfortBaseActor.h"
+#include "Core/Bases/BaseCharacter.h"
 #include "Villager.generated.h"
 
-/**
- * 
- */
+class ABaseBuilding;
+
 UCLASS()
-class WYLDFORT_API AVillager : public AWyldfortBaseActor
+class WYLDFORT_API AVillager : public ABaseCharacter
 {
 	GENERATED_BODY()
+
+public:
+	AVillager();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 	
+private:
+	
+	void StartInitialMove();
+	void PickNextDestination();
+	void MoveToDestination();
+
+	float Hunger;
+	float Thirst;
+	float Fatigue;
+
+	ABaseBuilding* CurrentDestination;
+
 };

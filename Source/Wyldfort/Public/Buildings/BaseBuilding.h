@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "WyldfortBaseActor.h"
+#include "Core/Bases/BaseActor.h"
 #include "Core/Types/BuildingTypes.h"
 #include "BaseBuilding.generated.h"
 
@@ -14,13 +14,15 @@ class AExitPoint;
 class APausePoint;
 
 UCLASS()
-class WYLDFORT_API ABaseBuilding : public AWyldfortBaseActor
+class WYLDFORT_API ABaseBuilding : public ABaseActor
 {
 	GENERATED_BODY()
 
 public:
 	ABaseBuilding();
 	virtual void BeginPlay() override;
+
+	EBuildingType GetBuildingType() const { return BuildingType; }
 
 	FTransform GetClosestEntryTransform(const FVector& FromLocation) const;
 	FTransform GetBestExitTransform(const FVector& ToLocation) const;
