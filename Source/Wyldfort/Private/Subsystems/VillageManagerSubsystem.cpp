@@ -2,7 +2,7 @@
 
 
 #include "Subsystems/VillageManagerSubsystem.h"
-#include "Buildings/BaseBuilding.h"
+#include "Core/Bases/BaseBuilding.h"
 #include "Core/Types/BuildingTypes.h"
 
 UVillageManagerSubsystem::UVillageManagerSubsystem()
@@ -47,6 +47,8 @@ ABaseBuilding* UVillageManagerSubsystem::GetClosestBuildingByType(EBuildingType 
 {
     if (Type == EBuildingType::None) return nullptr;
 
+    DebugLog(FString::Printf(TEXT("Searching for closest building of type %d."), static_cast<uint8>(Type)), this);
+
     ABaseBuilding* ClosestBuilding = nullptr;
     if (const TArray<TWeakObjectPtr<ABaseBuilding>>* Buildings = RegisteredBuildings.Find(Type))
     {
@@ -60,6 +62,7 @@ ABaseBuilding* UVillageManagerSubsystem::GetClosestBuildingByType(EBuildingType 
                 {
                     ClosestDistanceSquared = DistanceSquared;
                     ClosestBuilding = BuildingPtr.Get();
+                    DebugLog(FString::Printf(TEXT("New closest building found")), this);
                 }
             }
         }

@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseBuilding.h"
-#include "House.generated.h"
+#include "WoodCamp.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WYLDFORT_API AHouse : public ABaseBuilding
+class WYLDFORT_API AWoodCamp : public ABaseBuilding
 {
 	GENERATED_BODY()
-	
-public:
-	AHouse();
 
+public:
+	AWoodCamp();
+	
 };

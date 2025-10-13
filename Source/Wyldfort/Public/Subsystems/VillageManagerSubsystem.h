@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "Core/Types/BuildingTypes.h"
-#include "Utils/Logger.h"
+#include "Core/Utils/Logger.h"
 #include "VillageManagerSubsystem.generated.h"
 
 class ABaseBuilding;

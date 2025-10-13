@@ -7,4 +7,5 @@ AFoodMarket::AFoodMarket()
     : ABaseBuilding()
 {
     BuildingType = EBuildingType::FoodMarket;
+    BuildingInteractionType = EBuildingInteractionType::Wait;
 }

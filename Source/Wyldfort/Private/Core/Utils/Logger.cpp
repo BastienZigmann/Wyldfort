@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Utils/Logger.h"
+#include "Core/Utils/Logger.h"
 
 void FLogger::DebugLog(const FString& Msg, const UObject* Context, bool isDetailed) const
 {

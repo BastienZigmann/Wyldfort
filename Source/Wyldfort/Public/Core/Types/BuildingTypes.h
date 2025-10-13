@@ -10,5 +10,17 @@ enum class EBuildingType : uint8
 	None,
 	House,
 	Well,
-	FoodMarket
+	FoodMarket,
+	Ressource,
+	Industry,
+	Storage
+};
+
+UENUM(BlueprintType)
+enum class EBuildingInteractionType : uint8
+{
+	None,
+	Enter,
+	Wait,
+	Gather
 };

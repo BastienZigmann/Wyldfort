@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Utils/Logger.h"
+#include "Core/Utils/Logger.h"
 #include "BaseActor.generated.h"
 
 UCLASS()

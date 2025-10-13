@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "Utils/Logger.h"
+#include "Core/Utils/Logger.h"
 #include "BaseCharacter.generated.h"
 
 UCLASS()

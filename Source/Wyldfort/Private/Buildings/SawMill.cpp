@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Buildings/House.h"
+#include "Buildings/SawMill.h"
 
-AHouse::AHouse()
+ASawMill::ASawMill()
     : ABaseBuilding()
 {
-    BuildingType = EBuildingType::House;
+    BuildingType = EBuildingType::Industry;
     BuildingInteractionType = EBuildingInteractionType::Enter;
 }

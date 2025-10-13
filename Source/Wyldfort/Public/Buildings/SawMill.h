@@ -4,17 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseBuilding.h"
-#include "House.generated.h"
+#include "SawMill.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WYLDFORT_API AHouse : public ABaseBuilding
+class WYLDFORT_API ASawMill : public ABaseBuilding
 {
 	GENERATED_BODY()
-	
-public:
-	AHouse();
 
+public:
+	ASawMill();
 };

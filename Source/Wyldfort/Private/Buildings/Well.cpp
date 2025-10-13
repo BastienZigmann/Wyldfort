@@ -7,4 +7,5 @@ AWell::AWell()
     : ABaseBuilding()
 {
     BuildingType = EBuildingType::Well;
+    BuildingInteractionType = EBuildingInteractionType::Wait;
 }

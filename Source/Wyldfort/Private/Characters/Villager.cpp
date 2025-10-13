@@ -6,11 +6,14 @@
 #include <AIController.h>
 #include "NavigationSystem.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Buildings/BaseBuilding.h"
+#include "Core/Bases/BaseBuilding.h"
+#include "Components/Characters/Villagers/MovementAIController.h"
 
 AVillager::AVillager()
 {
     PrimaryActorTick.bCanEverTick = true;
+
+    AIControllerClass = AMovementAIController::StaticClass();
 
     Hunger = 100.0f;
     Thirst = 100.0f;
@@ -18,7 +21,6 @@ AVillager::AVillager()
 
     CurrentDestination = nullptr;
 
-    AIControllerClass = AAIController::StaticClass(); // or your custom AVillagerAIController
     AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
     GetCharacterMovement()->bOrientRotationToMovement = true; 
     
@@ -79,17 +81,43 @@ void AVillager::MoveToDestination()
     if (AAIController* AICon = Cast<AAIController>(GetController()))
     {
         // Optional: project target to navmesh
-        FVector Goal = CurrentDestination->GetActorLocation();
+        FVector Goal = CurrentDestination->GetDestinationTransform(GetActorLocation()).GetLocation();
         if (const UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
         {
             FNavLocation NavLoc;
-            if (NavSys->ProjectPointToNavigation(Goal, NavLoc, FVector(200,200,400)))
+            if (NavSys->ProjectPointToNavigation(Goal, NavLoc))
             {
                 Goal = NavLoc.Location;
             }
         }
+        DebugLog("Moving to destination", this);
 
         AICon->MoveToLocation(Goal, -1, /*bStopOnOverlap*/true, /*bUsePathfinding*/true,
                               /*bProjectDestinationToNavigation*/false, /*bCanStrafe*/false, /*Filter*/nullptr);
     }
 }
+
+void AVillager::OnMoveCompleted()
+{
+    DebugLog("Arrived at destination.", this);
+    // if (Result.IsSuccess())
+    // {
+    //     DebugLog("Arrived at destination.", this);
+    //     // Simulate interaction time
+    //     GetWorldTimerManager().SetTimerForNextTick(this, &AVillager::PickNextDestination);
+    //     GetWorldTimerManager().SetTimerForNextTick(this, &AVillager::MoveToDestination);
+    // }
+    // else
+    // {
+    //     DebugLog("Failed to reach destination.", this);
+    //     // Retry or pick a new destination
+    //     PickNextDestination();
+    //     MoveToDestination();
+    // }
+}
+
+void AVillager::OnMoveFailed()
+{
+    DebugLog("Failed to reach destination.", this);
+}
+

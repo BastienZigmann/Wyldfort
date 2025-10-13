@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Utils/Logger.h"
+#include "Core/Utils/Logger.h"
 #include "CameraPawn.generated.h"
 
 UCLASS()
