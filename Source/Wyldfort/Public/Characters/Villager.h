@@ -7,6 +7,7 @@
 #include "Villager.generated.h"
 
 class ABaseBuilding;
+class UVillagerMovementComponent;
 
 UCLASS()
 class WYLDFORT_API AVillager : public ABaseCharacter
@@ -17,19 +18,20 @@ public:
 	AVillager();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
+
+	UVillagerMovementComponent* GetVillagerMovementComponent() const { return VillagerMovementComponent; };
 	
-	void OnMoveCompleted();
-	void OnMoveFailed(); 
 private:
+
+	UPROPERTY()
+	TObjectPtr<UVillagerMovementComponent> VillagerMovementComponent;
 	
 	void StartInitialMove();
-	void PickNextDestination();
-	void MoveToDestination();
 
 	float Hunger;
 	float Thirst;
 	float Fatigue;
 
-	ABaseBuilding* CurrentDestination;
+	
 
 };

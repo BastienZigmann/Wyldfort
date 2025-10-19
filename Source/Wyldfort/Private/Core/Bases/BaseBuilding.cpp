@@ -13,7 +13,7 @@ ABaseBuilding::ABaseBuilding()
     BuildingType = EBuildingType::None;
     BuildingInteractionType = EBuildingInteractionType::None; // Default to None
 
-    EnableDebug();
+    //EnableDebug();
 }
 
 void ABaseBuilding::BeginPlay()
@@ -74,7 +74,7 @@ FTransform ABaseBuilding::GetDestinationTransform(const FVector& FromLocation) c
             return GetClosestEntryTransform(FromLocation);
         case EBuildingInteractionType::Wait:
             DebugLog("Getting pause transform.", this);
-            return GetBestExitTransform(FromLocation);
+            return GetClosestPauseTransform(FromLocation);
         default:
             DebugLog("Invalid building interaction type.", this);
             return FTransform::Identity;

@@ -3,15 +3,28 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/BaseActorComponent.h"
+#include "Core/Bases/Components/BaseVillagerComponent.h"
 #include "VillagerMovementComponent.generated.h"
 
-/**
- * 
- */
+class ABaseBuilding;
+
 UCLASS()
-class WYLDFORT_API UVillagerMovementComponent : public UBaseActorComponent
+class WYLDFORT_API UVillagerMovementComponent : public UBaseVillagerComponent
 {
 	GENERATED_BODY()
-	
+
+public:
+	UVillagerMovementComponent();
+
+	void PickNextDestination();
+	void MoveToDestination();
+	void OnMoveCompleted(bool bSuccess = true);
+
+	ABaseBuilding* CurrentDestination;
+
+protected:
+	void BeginPlay() override;
+
+
+
 };

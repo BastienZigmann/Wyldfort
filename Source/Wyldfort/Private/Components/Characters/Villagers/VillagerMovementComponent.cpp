@@ -2,4 +2,75 @@
 
 
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
+#include "Subsystems/VillageManagerSubsystem.h"
+#include "Engine/World.h"
+#include "NavigationSystem.h"
+#include <AIController.h>
+#include "Core/Bases/BaseBuilding.h"
 
+UVillagerMovementComponent::UVillagerMovementComponent()
+{
+    PrimaryComponentTick.bCanEverTick = false;
+    CurrentDestination = nullptr;
+    EnableDebug();
+}
+
+void UVillagerMovementComponent::BeginPlay()
+{
+    Super::BeginPlay();
+}
+
+void UVillagerMovementComponent::PickNextDestination()
+{
+    DebugLog("Picking next destination...", this);
+    // Placeholder for destination picking logic
+    if (UWorld* World = GetWorld())
+    {
+        DebugLog("World found.", this);
+        if (UVillageManagerSubsystem* Subsys = World->GetSubsystem<UVillageManagerSubsystem>())
+        {
+            DebugLog("Village Manager Subsystem found.", this);
+            ABaseBuilding* Destination = Subsys->GetClosestBuildingByType(EBuildingType::FoodMarket, GetOwningVillager()->GetActorLocation());
+            if (Destination)
+            {
+                CurrentDestination = Destination;
+                DebugLog("New destination acquired.", this);
+            }
+        }
+    }
+}
+
+void UVillagerMovementComponent::MoveToDestination()
+{
+    if (!CurrentDestination) return;
+
+    if (AAIController* AICon = Cast<AAIController>(GetOwningVillager()->GetController()))
+    {
+        // Optional: project target to navmesh
+        FVector Goal = CurrentDestination->GetDestinationTransform(GetOwningVillager()->GetActorLocation()).GetLocation();
+        if (const UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
+        {
+            FNavLocation NavLoc;
+            if (NavSys->ProjectPointToNavigation(Goal, NavLoc))
+            {
+                Goal = NavLoc.Location;
+            }
+        }
+        DebugLog("Moving to destination", this);
+
+        AICon->MoveToLocation(Goal, -1, /*bStopOnOverlap*/true, /*bUsePathfinding*/true,
+                              /*bProjectDestinationToNavigation*/false, /*bCanStrafe*/false, /*Filter*/nullptr);
+    }
+}
+
+void UVillagerMovementComponent::OnMoveCompleted(bool bSuccess)
+{
+    if (bSuccess)
+    {
+        DebugLog("Successfully arrived at destination.", this);
+    }
+    else
+    {
+        WarningLog("Failed to reach destination.", this);
+    }
+}

@@ -4,11 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Core/Utils/Logger.h"
 #include "BaseActorComponent.generated.h"
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WYLDFORT_API UBaseActorComponent : public UActorComponent
+class WYLDFORT_API UBaseActorComponent : public UActorComponent, public FLogger
 {
 	GENERATED_BODY()
 
@@ -19,6 +19,19 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
+
+	template<typename T>
+	T* GetOwnerComponent() const
+	{
+		return GetOwner() ? GetOwner()->FindComponentByClass<T>() : nullptr;
+	}
+
+	template<typename T>
+	T* GetOwnerTyped() const
+	{
+		return Cast<T>(GetOwner());
+	}
+
 
 public:	
 	// Called every frame
