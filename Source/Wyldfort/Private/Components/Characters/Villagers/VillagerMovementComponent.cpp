@@ -2,7 +2,7 @@
 
 
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
-#include "Subsystems/VillageManagerSubsystem.h"
+#include "Subsystems/VillageBuildingsManagerSubsystem.h"
 #include "Engine/World.h"
 #include "NavigationSystem.h"
 #include <AIController.h>
@@ -27,7 +27,7 @@ void UVillagerMovementComponent::PickNextDestination()
     if (UWorld* World = GetWorld())
     {
         DebugLog("World found.", this);
-        if (UVillageManagerSubsystem* Subsys = World->GetSubsystem<UVillageManagerSubsystem>())
+        if (UVillageBuildingsManagerSubsystem* Subsys = World->GetSubsystem<UVillageBuildingsManagerSubsystem>())
         {
             DebugLog("Village Manager Subsystem found.", this);
             ABaseBuilding* Destination = Subsys->GetClosestBuildingByType(EBuildingType::FoodMarket, GetOwningVillager()->GetActorLocation());

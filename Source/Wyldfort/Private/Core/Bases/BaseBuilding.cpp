@@ -4,7 +4,7 @@
 #include "Buildings/Parts/EntryPoint.h"
 #include "Buildings/Parts/ExitPoint.h"
 #include "Buildings/Parts/PausePoint.h"
-#include "Subsystems/VillageManagerSubsystem.h"
+#include "Subsystems/VillageBuildingsManagerSubsystem.h"
 
 ABaseBuilding::ABaseBuilding()
 {
@@ -22,7 +22,7 @@ void ABaseBuilding::BeginPlay()
 
     if (UWorld* World = GetWorld())
     {
-        if (UVillageManagerSubsystem* Subsys = World->GetSubsystem<UVillageManagerSubsystem>())
+        if (UVillageBuildingsManagerSubsystem* Subsys = World->GetSubsystem<UVillageBuildingsManagerSubsystem>())
         {
             Subsys->RegisterBuilding(this);
             DebugLog(FString::Printf(TEXT("Building of type %d registered."), static_cast<uint8>(BuildingType)), this);

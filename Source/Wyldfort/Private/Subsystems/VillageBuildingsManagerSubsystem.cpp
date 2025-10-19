@@ -1,16 +1,16 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Subsystems/VillageManagerSubsystem.h"
+#include "Subsystems/VillageBuildingsManagerSubsystem.h"
 #include "Core/Bases/BaseBuilding.h"
 #include "Core/Types/BuildingTypes.h"
 
-UVillageManagerSubsystem::UVillageManagerSubsystem()
+UVillageBuildingsManagerSubsystem::UVillageBuildingsManagerSubsystem()
 {
     EnableDebug();
 }
 
-void UVillageManagerSubsystem::RegisterBuilding(ABaseBuilding* Building)
+void UVillageBuildingsManagerSubsystem::RegisterBuilding(ABaseBuilding* Building)
 {
     if (!Building) return;
 
@@ -25,7 +25,7 @@ void UVillageManagerSubsystem::RegisterBuilding(ABaseBuilding* Building)
     DebugLog(FString::Printf(TEXT("Registered building of type %d."), static_cast<uint8>(Type)), this);
 }
 
-void UVillageManagerSubsystem::UnregisterBuilding(ABaseBuilding* Building)
+void UVillageBuildingsManagerSubsystem::UnregisterBuilding(ABaseBuilding* Building)
 {
     if (!Building) return;
 
@@ -43,7 +43,7 @@ void UVillageManagerSubsystem::UnregisterBuilding(ABaseBuilding* Building)
     }
 }
 
-ABaseBuilding* UVillageManagerSubsystem::GetClosestBuildingByType(EBuildingType Type, const FVector& Location) const
+ABaseBuilding* UVillageBuildingsManagerSubsystem::GetClosestBuildingByType(EBuildingType Type, const FVector& Location) const
 {
     if (Type == EBuildingType::None) return nullptr;
 

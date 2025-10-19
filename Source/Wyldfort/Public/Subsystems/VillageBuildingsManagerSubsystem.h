@@ -3,10 +3,9 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystems/WorldSubsystem.h"
+#include "Core/Bases/BaseSubsystem.h"
 #include "Core/Types/BuildingTypes.h"
-#include "Core/Utils/Logger.h"
-#include "VillageManagerSubsystem.generated.h"
+#include "VillageBuildingsManagerSubsystem.generated.h"
 
 class ABaseBuilding;
 class AHouse;
@@ -14,12 +13,12 @@ class FoodMarket;
 class AWell;
 
 UCLASS()
-class WYLDFORT_API UVillageManagerSubsystem : public UWorldSubsystem, public FLogger
+class WYLDFORT_API UVillageBuildingsManagerSubsystem : public UBaseSubsystem
 {
 	GENERATED_BODY()
 	
 public:
-	UVillageManagerSubsystem();
+	UVillageBuildingsManagerSubsystem();
 	// virtual void Initialize(FSubsystemCollectionBase& Collection) override; // Override only if you have setup work when the subsystem is created for a world (e.g., caching subsystems, binding delegates, creating timers).
     // virtual void Deinitialize() override; // Override if you need to unbind delegates, clear timers, release resources. Otherwise you can omit it.
     // virtual void OnWorldBeginPlay(UWorld& InWorld) override; // Override if you need logic specifically when the world starts playing (after the world is ready). If not, omit it.
