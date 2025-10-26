@@ -7,7 +7,7 @@
 
 UVillageBuildingsManagerSubsystem::UVillageBuildingsManagerSubsystem()
 {
-    EnableDebug();
+    // EnableDebug();
 }
 
 void UVillageBuildingsManagerSubsystem::RegisterBuilding(ABaseBuilding* Building)

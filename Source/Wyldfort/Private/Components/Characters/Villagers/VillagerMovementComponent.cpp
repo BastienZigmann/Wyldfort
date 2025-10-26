@@ -12,7 +12,7 @@ UVillagerMovementComponent::UVillagerMovementComponent()
 {
     PrimaryComponentTick.bCanEverTick = false;
     CurrentDestination = nullptr;
-    EnableDebug();
+    // EnableDebug();
 }
 
 void UVillagerMovementComponent::BeginPlay()
@@ -26,11 +26,9 @@ void UVillagerMovementComponent::PickNextDestination()
     // Placeholder for destination picking logic
     if (UWorld* World = GetWorld())
     {
-        DebugLog("World found.", this);
         if (UVillageBuildingsManagerSubsystem* Subsys = World->GetSubsystem<UVillageBuildingsManagerSubsystem>())
         {
-            DebugLog("Village Manager Subsystem found.", this);
-            ABaseBuilding* Destination = Subsys->GetClosestBuildingByType(EBuildingType::FoodMarket, GetOwningVillager()->GetActorLocation());
+            ABaseBuilding* Destination = Subsys->GetClosestBuildingByType(EBuildingType::House, GetOwningVillager()->GetActorLocation());
             if (Destination)
             {
                 CurrentDestination = Destination;
@@ -46,15 +44,12 @@ void UVillagerMovementComponent::MoveToDestination()
 
     if (AAIController* AICon = Cast<AAIController>(GetOwningVillager()->GetController()))
     {
-        // Optional: project target to navmesh
         FVector Goal = CurrentDestination->GetDestinationTransform(GetOwningVillager()->GetActorLocation()).GetLocation();
         if (const UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
         {
             FNavLocation NavLoc;
             if (NavSys->ProjectPointToNavigation(Goal, NavLoc))
-            {
                 Goal = NavLoc.Location;
-            }
         }
         DebugLog("Moving to destination", this);
 
@@ -66,11 +61,7 @@ void UVillagerMovementComponent::MoveToDestination()
 void UVillagerMovementComponent::OnMoveCompleted(bool bSuccess)
 {
     if (bSuccess)
-    {
         DebugLog("Successfully arrived at destination.", this);
-    }
     else
-    {
         WarningLog("Failed to reach destination.", this);
-    }
 }

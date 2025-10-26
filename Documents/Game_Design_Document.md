@@ -697,11 +697,11 @@ A playable vertical slice demonstrating core gameplay loop:
 
 **Week 1: Core Setup**
 
-- [ ] Project setup in UE5 (C++ project)
-- [ ] Camera controller (WASD movement, zoom, rotate)
+- [x] Project setup in UE5 (C++ project)
+- [x] Camera controller (WASD movement, zoom, rotate)
 - [ ] Time control system (pause, 1x, 2x speed)
-- [ ] Basic terrain (flat plane with simple textures)
-- [ ] Input handling (left-click select, right-click command)
+- [x] Basic terrain (flat plane with simple textures)
+- [x] Input handling (left-click select, right-click command)
 
 **Week 2: Resources & Building Basics**
 

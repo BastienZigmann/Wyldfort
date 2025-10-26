@@ -6,6 +6,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "CameraPawn.h"
+#include "Interface/MainHUDWidget.h"
 
 ACameraPlayerController::ACameraPlayerController()
 {
@@ -19,6 +20,17 @@ ACameraPlayerController::ACameraPlayerController()
 void ACameraPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+
+    // Set up input mode safely after initialization
+    FInputModeGameAndUI Mode;
+    Mode.SetHideCursorDuringCapture(false);
+    Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    SetInputMode(Mode);
+
+    // Interface Initialization
+    InitializeHUD();
+
+    // Camera Controls
     UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
     if (!Subsystem) 
     {
@@ -32,8 +44,10 @@ void ACameraPlayerController::BeginPlay()
     
     CameraPawn = Cast<ACameraPawn>(GetPawn());
     if (!CameraPawn)
+    {
         ErrorLog("CameraPawn not found!", this);
         return;
+    }
 }
 
 void ACameraPlayerController::SetupInputComponent()
@@ -98,4 +112,19 @@ void ACameraPlayerController::RotateCamera(const FInputActionValue& Value)
     if (!CameraPawn) return;
     FVector2D RotateValue = Value.Get<FVector2D>();
     CameraPawn->RotateCamera(RotateValue.Y, RotateValue.X);
+}
+
+void ACameraPlayerController::InitializeHUD()
+{
+    if (!MainHUDWidgetClass)
+    {
+        WarningLog("MainHUDWidgetClass is not set, cannot initialize HUD.", this);
+        return;
+    }
+
+    MainHUDWidgetInstance = CreateWidget<UMainHUDWidget>(this, MainHUDWidgetClass);
+    if (MainHUDWidgetInstance)
+    {
+        MainHUDWidgetInstance->AddToViewport(0);
+    }
 }
