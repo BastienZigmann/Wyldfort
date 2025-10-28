@@ -8,6 +8,7 @@
 
 class ABaseBuilding;
 class UVillagerMovementComponent;
+class UTimeAffectedComponent;
 
 UCLASS()
 class WYLDFORT_API AVillager : public ABaseCharacter
@@ -25,6 +26,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UVillagerMovementComponent> VillagerMovementComponent;
+	UPROPERTY()
+	TObjectPtr<UTimeAffectedComponent> TimeAffectedComponent;
 	
 	void StartInitialMove();
 

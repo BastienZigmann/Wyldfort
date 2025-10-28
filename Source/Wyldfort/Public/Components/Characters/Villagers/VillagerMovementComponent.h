@@ -8,6 +8,8 @@
 
 class ABaseBuilding;
 
+DECLARE_MULTICAST_DELEGATE(FOnDestinationReached);
+
 UCLASS()
 class WYLDFORT_API UVillagerMovementComponent : public UBaseVillagerComponent
 {
@@ -21,6 +23,10 @@ public:
 	void OnMoveCompleted(bool bSuccess = true);
 
 	ABaseBuilding* CurrentDestination;
+	// TMP
+	int tmp = 0;
+
+	FOnDestinationReached OnDestinationReached;
 
 protected:
 	void BeginPlay() override;

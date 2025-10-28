@@ -4,10 +4,11 @@
 #include "Components/Characters/Villagers/MovementAIController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
+#include "Components/Global/TimeAffectedComponent.h"
 
 AVillager::AVillager()
 {
-    // EnableDebug();
+    EnableDebug();
     PrimaryActorTick.bCanEverTick = true;
 
     AIControllerClass = AMovementAIController::StaticClass();
@@ -16,6 +17,7 @@ AVillager::AVillager()
     Thirst = 100.0f;
     Fatigue = 100.0f;
 
+    TimeAffectedComponent = CreateDefaultSubobject<UTimeAffectedComponent>(TEXT("TimeAffectedComponent"));
     VillagerMovementComponent = CreateDefaultSubobject<UVillagerMovementComponent>(TEXT("VillagerMovementComponent"));
     if (!VillagerMovementComponent) 
     {
@@ -25,7 +27,7 @@ AVillager::AVillager()
 
     AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
     GetCharacterMovement()->bOrientRotationToMovement = true; 
-    
+    DebugLog("Village initialized", this);
 }
 
 void AVillager::BeginPlay()

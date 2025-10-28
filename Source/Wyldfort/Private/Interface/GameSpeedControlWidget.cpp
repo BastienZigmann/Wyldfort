@@ -46,6 +46,7 @@ void UGameSpeedControlWidget::OnPlayClicked()
         if (UTimeControlSubsystem* TimeSubsystem = World->GetSubsystem<UTimeControlSubsystem>())
         {
             TimeSubsystem->SetPaused(false); // Unpause the game, normal speed
+            TimeSubsystem->SetSpeed(1.0f);
         }
     }
 }

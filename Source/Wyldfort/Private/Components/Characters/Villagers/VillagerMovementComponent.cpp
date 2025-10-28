@@ -10,14 +10,17 @@
 
 UVillagerMovementComponent::UVillagerMovementComponent()
 {
+    tmp = 0;
+
     PrimaryComponentTick.bCanEverTick = false;
     CurrentDestination = nullptr;
-    // EnableDebug();
+    EnableDebug();
 }
 
 void UVillagerMovementComponent::BeginPlay()
 {
     Super::BeginPlay();
+    DebugLog("Villager Movement component Initialized", this);
 }
 
 void UVillagerMovementComponent::PickNextDestination()
@@ -29,6 +32,9 @@ void UVillagerMovementComponent::PickNextDestination()
         if (UVillageBuildingsManagerSubsystem* Subsys = World->GetSubsystem<UVillageBuildingsManagerSubsystem>())
         {
             ABaseBuilding* Destination = Subsys->GetClosestBuildingByType(EBuildingType::House, GetOwningVillager()->GetActorLocation());
+            if (tmp % 2 == 0) Destination = Subsys->GetClosestBuildingByType(EBuildingType::FoodMarket, GetOwningVillager()->GetActorLocation());;
+            tmp ++;
+
             if (Destination)
             {
                 CurrentDestination = Destination;
@@ -64,4 +70,7 @@ void UVillagerMovementComponent::OnMoveCompleted(bool bSuccess)
         DebugLog("Successfully arrived at destination.", this);
     else
         WarningLog("Failed to reach destination.", this);
+    OnDestinationReached.Broadcast();
+    PickNextDestination();
+    MoveToDestination();
 }
