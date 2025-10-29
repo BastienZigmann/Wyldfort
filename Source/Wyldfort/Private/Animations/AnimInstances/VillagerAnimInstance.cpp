@@ -26,7 +26,6 @@ void UVillagerAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
     {
         FVector velocity = Villager->GetVelocity();
         Speed = FVector(velocity.X, velocity.Y, 0.0f).Size();
-
     }
 }
 
