@@ -8,7 +8,7 @@
 
 AVillager::AVillager()
 {
-    EnableDebug();
+    // EnableDebug();
     PrimaryActorTick.bCanEverTick = true;
 
     AIControllerClass = AMovementAIController::StaticClass();

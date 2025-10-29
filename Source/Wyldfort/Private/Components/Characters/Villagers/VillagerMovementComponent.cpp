@@ -14,7 +14,7 @@ UVillagerMovementComponent::UVillagerMovementComponent()
 
     PrimaryComponentTick.bCanEverTick = false;
     CurrentDestination = nullptr;
-    EnableDebug();
+    // EnableDebug();
 }
 
 void UVillagerMovementComponent::BeginPlay()
