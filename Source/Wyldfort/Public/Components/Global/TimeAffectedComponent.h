@@ -3,12 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "Core/Bases/Components/BaseActorComponent.h"
 #include "TimeAffectedComponent.generated.h"
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class WYLDFORT_API UTimeAffectedComponent : public UActorComponent
+class WYLDFORT_API UTimeAffectedComponent : public UBaseActorComponent
 {
 	GENERATED_BODY()
 

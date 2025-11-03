@@ -11,8 +11,8 @@ enum class EBuildingType : uint8
 	House,
 	Well,
 	FoodMarket,
-	Ressource,
-	Industry,
+	RessourceGathering,
+	RessourceProcessing,
 	Storage
 };
 
@@ -20,7 +20,7 @@ UENUM(BlueprintType)
 enum class EBuildingInteractionType : uint8
 {
 	None,
-	Enter,
-	Wait,
-	Gather
+	Enter, // Come to the building, enter and disappear in it
+	Wait, // Come to pause point, wait (interact or whatever)
+	Gather // Come to entry, then leave to do its job for instance
 };

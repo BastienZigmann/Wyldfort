@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseBuilding.h"
-#include "WoodCamp.generated.h"
+#include "WoodCuttingCamp.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WYLDFORT_API AWoodCamp : public ABaseBuilding
+class WYLDFORT_API AWoodCuttingCamp : public ABaseBuilding
 {
 	GENERATED_BODY()
-
-public:
-	AWoodCamp();
 	
+public:
+	AWoodCuttingCamp();
+
 };

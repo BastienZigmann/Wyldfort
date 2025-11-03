@@ -1,11 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Buildings/WoodCamp.h"
+#include "Buildings/WoodCuttingCamp.h"
 
-AWoodCamp::AWoodCamp()
-    : ABaseBuilding()
+AWoodCuttingCamp::AWoodCuttingCamp()
 {
-    BuildingType = EBuildingType::Ressource;
+    BuildingType = EBuildingType::RessourceProcessing;
     BuildingInteractionType = EBuildingInteractionType::Gather;
 }
