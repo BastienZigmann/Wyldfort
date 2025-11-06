@@ -24,8 +24,8 @@ public:
 
 	EBuildingType GetBuildingType() const { return BuildingType; }
 
-	FTransform GetDestinationTransform(const FVector& FromLocation) const; // Call to get entry point, no matter the type
-	FTransform GetExitTransform(const FVector& ToLocation) const; // Call to get exit point, no matter the type
+	FTransform GetEntryPointTransform(const FVector& FromLocation) const; // Call to get entry point, no matter the type
+	FTransform GetExitPointTransform(const FVector& ToLocation) const; // Call to get exit point, no matter the type
 	
 protected:
 	EBuildingType BuildingType;

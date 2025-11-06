@@ -50,7 +50,7 @@ void UVillagerMovementComponent::MoveToDestination()
 
     if (AAIController* AICon = Cast<AAIController>(GetOwningVillager()->GetController()))
     {
-        FVector Goal = CurrentDestination->GetDestinationTransform(GetOwningVillager()->GetActorLocation()).GetLocation();
+        FVector Goal = CurrentDestination->GetEntryPointTransform(GetOwningVillager()->GetActorLocation()).GetLocation();
         if (const UNavigationSystemV1* NavSys = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))
         {
             FNavLocation NavLoc;

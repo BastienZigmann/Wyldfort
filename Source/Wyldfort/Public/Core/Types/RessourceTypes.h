@@ -7,6 +7,7 @@
 UENUM(BlueprintType)
 enum class ERessourceType : uint8
 {
+	None,
 	Rock,
 	Wood
 };

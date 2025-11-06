@@ -61,7 +61,7 @@ void ABaseBuilding::GatherInOutPoints()
         DebugLog(FString::Printf(TEXT("Found %d pause points for building."), PausePoints.Num()), this);
 }
 
-FTransform ABaseBuilding::GetDestinationTransform(const FVector& FromLocation) const
+FTransform ABaseBuilding::GetEntryPointTransform(const FVector& FromLocation) const
 {
     switch (BuildingInteractionType)
     {
@@ -81,7 +81,7 @@ FTransform ABaseBuilding::GetDestinationTransform(const FVector& FromLocation) c
     }
 }
 
-FTransform ABaseBuilding::GetExitTransform(const FVector& ToLocation) const
+FTransform ABaseBuilding::GetExitPointTransform(const FVector& ToLocation) const
 {
     return GetBestExitTransform(ToLocation);
 }
