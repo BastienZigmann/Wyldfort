@@ -6,37 +6,37 @@
 UGlobalStockSubsystem::UGlobalStockSubsystem()
 {
     // Bind delegate handlers
-    NotifyRessourceAdded.AddUObject(this, &UGlobalStockSubsystem::HandleNotifyRessourceAdded);
-    NotifyRessourceRemoved.AddUObject(this, &UGlobalStockSubsystem::HandleNotifyRessourceRemoved);
+    NotifyResourceAdded.AddUObject(this, &UGlobalStockSubsystem::HandleNotifyResourceAdded);
+    NotifyResourceRemoved.AddUObject(this, &UGlobalStockSubsystem::HandleNotifyResourceRemoved);
 }
 
-TArray<ERessourceType> UGlobalStockSubsystem::GetInventoryRessources() const
+TArray<EResourceType> UGlobalStockSubsystem::GetInventoryResources() const
 {
-    TArray<ERessourceType> Keys;
+    TArray<EResourceType> Keys;
     Inventory.GetKeys(Keys);
     return Keys;
 }
 
-int32 UGlobalStockSubsystem::GetInventoryValue(ERessourceType r) const
+int32 UGlobalStockSubsystem::GetInventoryValue(EResourceType r) const
 {
     return Inventory.Contains(r) ? Inventory[r] : 0;
 }
 
-void UGlobalStockSubsystem::HandleNotifyRessourceAdded(ERessourceType r, int quantity)
+void UGlobalStockSubsystem::HandleNotifyResourceAdded(EResourceType r, int quantity)
 {
     if (quantity <= 0)
     {
-        ErrorLog("Got Notified of a <= 0 ressource Adding", this);
+        ErrorLog("Got Notified of a <= 0 Resource Adding", this);
         return;
     }
     Inventory.Add(r, quantity);
 }
 
-void UGlobalStockSubsystem::HandleNotifyRessourceRemoved(ERessourceType r, int quantity)
+void UGlobalStockSubsystem::HandleNotifyResourceRemoved(EResourceType r, int quantity)
 {
     if (quantity <= 0)
     {
-        ErrorLog("Got Notified of a <= 0 ressource removal", this);
+        ErrorLog("Got Notified of a <= 0 Resource removal", this);
         return;
     }
     Inventory[r] = FMath::Max(0, Inventory[r] - quantity);

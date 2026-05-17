@@ -7,7 +7,7 @@
 #include "WoodCuttingCamp.generated.h"
 
 class AVillager;
-class ARessourceNode;
+class AResourceNode;
 
 // UFoliageInstancedStaticMeshComponent Has many instance, when removing one, the last in the list is moved at the index of the removed one.
 // So when saving it, NeedUpdateIfRemoval is true if it's the last, meaning it would need update
@@ -19,7 +19,7 @@ struct FInstanceRef
 	bool NeedUpdateIfRemoval = false;
 	// TODO Way to differenciate the many different trees types (UFoliageInstancedStaticMeshComponent)
 
-	ARessourceNode* Node = nullptr;
+	AResourceNode* Node = nullptr;
 
 	bool operator==(const FInstanceRef& Other) const
 	{

@@ -6,6 +6,6 @@
 ASawMill::ASawMill()
     : ABaseBuilding()
 {
-    BuildingType = EBuildingType::RessourceProcessing;
+    BuildingType = EBuildingType::ResourceProcessing;
     BuildingInteractionType = EBuildingInteractionType::Enter;
 }

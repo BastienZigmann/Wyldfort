@@ -4,14 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseSubsystem.h"
-#include "Core/Types/RessourceTypes.h"
+#include "Core/Types/ResourceTypes.h"
 #include "GlobalStockSubsystem.generated.h"
 
 // Centralized Inventory system, should be notified when a transfer happens in one of the inventory in the game (cf InventoryComponent.h)
 // This subsystem only use is to gather information about global stock for display purpose
 
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnRessourceAdded, ERessourceType, int); // Should be called when any inventory have a ressource added. (Params : Type and quandity)
-DECLARE_MULTICAST_DELEGATE_TwoParams(FOnRessourceRemoved, ERessourceType, int); // Should be called when any inventory have a ressource removed. (Params : Type and quandity)
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnResourceAdded, EResourceType, int); // Should be called when any inventory have a Resource added. (Params : Type and quandity)
+DECLARE_MULTICAST_DELEGATE_TwoParams(FOnResourceRemoved, EResourceType, int); // Should be called when any inventory have a Resource removed. (Params : Type and quandity)
 
 UCLASS()
 class WYLDFORT_API UGlobalStockSubsystem : public UBaseSubsystem
@@ -21,20 +21,20 @@ class WYLDFORT_API UGlobalStockSubsystem : public UBaseSubsystem
 public:
 	UGlobalStockSubsystem();
 
-	TArray<ERessourceType> GetInventoryRessources() const;
-	int32 GetInventoryValue(ERessourceType r) const;
+	TArray<EResourceType> GetInventoryResources() const;
+	int32 GetInventoryValue(EResourceType r) const;
 
-	FOnRessourceAdded NotifyRessourceAdded;
-	FOnRessourceRemoved NotifyRessourceRemoved;
+	FOnResourceAdded NotifyResourceAdded;
+	FOnResourceRemoved NotifyResourceRemoved;
 
 private:
 	UPROPERTY(Transient)
-	TMap<ERessourceType, int> Inventory;
+	TMap<EResourceType, int> Inventory;
 
 	UFUNCTION()
-	void HandleNotifyRessourceAdded(ERessourceType ResourceType, int32 Amount);
+	void HandleNotifyResourceAdded(EResourceType ResourceType, int32 Amount);
 	UFUNCTION()
-	void HandleNotifyRessourceRemoved(ERessourceType ResourceType, int32 Amount);
+	void HandleNotifyResourceRemoved(EResourceType ResourceType, int32 Amount);
 
 };
 

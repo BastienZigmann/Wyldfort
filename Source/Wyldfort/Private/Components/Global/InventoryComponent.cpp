@@ -14,14 +14,14 @@ void UInventoryComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
-void UInventoryComponent::AddRessource(ERessourceType r, int32 quantity, bool ShouldNotifyGlobalStock)
+void UInventoryComponent::AddResource(EResourceType r, int32 quantity, bool ShouldNotifyGlobalStock)
 {
 	UWorld* World = GetWorld();
     if (!World) return;
 	UGlobalStockSubsystem* GlobalStock = World->GetSubsystem<UGlobalStockSubsystem>();
 	if (!GlobalStock && ShouldNotifyGlobalStock) // If we don't want to notify
 	{
-		ErrorLog("GlobalStock Subsystem missing, ressource adding cancelled", this);
+		ErrorLog("GlobalStock Subsystem missing, Resource adding cancelled", this);
 		return;
 	}
 		
@@ -32,17 +32,17 @@ void UInventoryComponent::AddRessource(ERessourceType r, int32 quantity, bool Sh
 	}
     Inventory.Add(r, quantity);
 	if (ShouldNotifyGlobalStock) 
-		GlobalStock->NotifyRessourceAdded.Broadcast(r, quantity);
+		GlobalStock->NotifyResourceAdded.Broadcast(r, quantity);
 }
 
-void UInventoryComponent::RemoveRessource(ERessourceType r, int32 quantity, bool ShouldNotifyGlobalStock)
+void UInventoryComponent::RemoveResource(EResourceType r, int32 quantity, bool ShouldNotifyGlobalStock)
 {
 	UWorld* World = GetWorld();
     if (!World) return;
 	UGlobalStockSubsystem* GlobalStock = World->GetSubsystem<UGlobalStockSubsystem>();
 	if (!GlobalStock && ShouldNotifyGlobalStock) 
 	{
-		ErrorLog("GlobalStock Subsystem missing, ressource removing cancelled", this);
+		ErrorLog("GlobalStock Subsystem missing, Resource removing cancelled", this);
 		return;
 	}
 	
@@ -58,10 +58,10 @@ void UInventoryComponent::RemoveRessource(ERessourceType r, int32 quantity, bool
     }
     Inventory[r] = FMath::Max(0, Inventory[r] - quantity);
 	if (ShouldNotifyGlobalStock)
-		GlobalStock->NotifyRessourceRemoved.Broadcast(r, quantity);
+		GlobalStock->NotifyResourceRemoved.Broadcast(r, quantity);
 }
 
-void UInventoryComponent::TransferRessourceTo(AActor* other, ERessourceType r, int32 quantity)
+void UInventoryComponent::TransferResourceTo(AActor* other, EResourceType r, int32 quantity)
 {
 	if (!other) return;
 	
@@ -72,6 +72,6 @@ void UInventoryComponent::TransferRessourceTo(AActor* other, ERessourceType r, i
 		return;
 	}
 
-	this->RemoveRessource(r, quantity, false);
-	otherInventory->AddRessource(r, quantity, false);
+	this->RemoveResource(r, quantity, false);
+	otherInventory->AddResource(r, quantity, false);
 }

@@ -3,13 +3,13 @@
 
 #include "Buildings/WoodCuttingCamp.h"
 #include "Engine/OverlapResult.h"
-#include "Ressources/RessourceNode.h"
+#include "Resources/ResourceNode.h"
 #include "Characters/Villager.h"
-#include "Components/GatherableRessource.h"
+#include "Components/GatherableResource.h"
 
 AWoodCuttingCamp::AWoodCuttingCamp()
 {
-    BuildingType = EBuildingType::RessourceGathering;
+    BuildingType = EBuildingType::ResourceGathering;
     BuildingInteractionType = EBuildingInteractionType::Gather;
 
     EnableDebug();
@@ -141,7 +141,7 @@ void AWoodCuttingCamp::ScanArea()
 	if (bAny)
 	{
 		// Track which components we've already processed to avoid duplicate work
-		TSet<UGatherableRessource*> ProcessedComponents;
+		TSet<UGatherableResource*> ProcessedComponents;
 		ProcessedComponents.Reserve(32);
 
 		for (const FOverlapResult& R : Overlaps)
@@ -150,12 +150,12 @@ void AWoodCuttingCamp::ScanArea()
 			if (!Prim) continue;
 
 			// Only consider our custom gatherable foliage component type
-			if (UGatherableRessource* GatherComp = Cast<UGatherableRessource>(Prim))
+			if (UGatherableResource* GatherComp = Cast<UGatherableResource>(Prim))
 			{
 				// Skip if we've already processed this component
 				if (ProcessedComponents.Contains(GatherComp)) continue;
 				
-				if (GatherComp->RessourceType != ERessourceType::Wood) continue;
+				if (GatherComp->ResourceType != EResourceType::Wood) continue;
 				
 				DebugLog(" Processing component: " + Prim->GetName(), this);
 				// Mark this component as processed
@@ -250,8 +250,8 @@ void AWoodCuttingCamp::RemoveTree(int InstanceIdx)
 	}
 
 	// Find the component to remove the instance from
-	UGatherableRessource* GatherComp = nullptr;
-	for (TObjectIterator<UGatherableRessource> It; It; ++It)
+	UGatherableResource* GatherComp = nullptr;
+	for (TObjectIterator<UGatherableResource> It; It; ++It)
 	{
 		if (It->GetWorld() == GetWorld() && It->ComponentGuid == FoundRef->ComponentGuid)
 		{

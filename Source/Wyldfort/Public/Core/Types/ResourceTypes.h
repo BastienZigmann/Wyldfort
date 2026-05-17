@@ -3,12 +3,21 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ResourceTypes.generated.h"
 
 UENUM(BlueprintType)
-enum class ERessourceType : uint8
+enum class EResourceType : uint8
 {
 	None,
 	Rock,
 	Wood
 };
 
+USTRUCT()
+struct FResourceStack
+{
+	GENERATED_BODY()
+
+	EResourceType type;
+	int32 quantity;
+};

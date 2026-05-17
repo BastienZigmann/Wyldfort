@@ -11,8 +11,8 @@ enum class EBuildingType : uint8
 	House,
 	Well,
 	FoodMarket,
-	RessourceGathering,
-	RessourceProcessing,
+	ResourceGathering,
+	ResourceProcessing,
 	Storage
 };
 
