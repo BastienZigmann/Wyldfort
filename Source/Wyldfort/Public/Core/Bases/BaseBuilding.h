@@ -21,6 +21,7 @@ class WYLDFORT_API ABaseBuilding : public ABaseActor
 public:
 	ABaseBuilding();
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 
 	EBuildingType GetBuildingType() const { return BuildingType; }
 

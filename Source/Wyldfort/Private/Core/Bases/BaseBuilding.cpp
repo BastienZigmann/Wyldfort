@@ -32,6 +32,20 @@ void ABaseBuilding::BeginPlay()
     GatherInOutPoints();
 }
 
+void ABaseBuilding::EndPlay(const EEndPlayReason::Type Reason)
+{
+    Super::EndPlay(Reason);
+
+    if (UWorld* World = GetWorld())
+    {
+        if (UVillageBuildingsManagerSubsystem* Subsys = World->GetSubsystem<UVillageBuildingsManagerSubsystem>())
+        {
+            Subsys->UnregisterBuilding(this);
+            DebugLog(FString::Printf(TEXT("Building of type %d unregistered."), static_cast<uint8>(BuildingType)), this);
+        }
+    }
+}
+
 void ABaseBuilding::GatherInOutPoints()
 {
     TArray<AActor*> FoundActors;

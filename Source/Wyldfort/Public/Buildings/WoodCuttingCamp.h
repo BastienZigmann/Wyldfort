@@ -6,6 +6,7 @@
 #include "Core/Bases/BaseBuilding.h"
 #include "WoodCuttingCamp.generated.h"
 
+class AVillager;
 class ARessourceNode;
 
 // UFoliageInstancedStaticMeshComponent Has many instance, when removing one, the last in the list is moved at the index of the removed one.
@@ -50,20 +51,25 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Wood Cutting Camp")
 	float ScanInterval = 10.f;
 
-	void RemoveTree(int InstanceIdx);
-	void SetNumberOfWorkerAssigned(int32 Value);
-
-private:
+	void AssignVillager(AVillager* Worker); // Assign the villager to work here
+	void UnassignVillager(AVillager* Worker); // Unassign the villager from this building
+	
+protected:
 	virtual void BeginPlay() override;
-
+	
 private:
-
+	
 	FTimerHandle ScanTimerHandle;
-
-	int32 NumberOfWorkerAssigned = 0;
-
+	
 	TSet<FInstanceRef> TreePool;
-
+	TSet<TWeakObjectPtr<AVillager>> AssignedWorkers;
+	
+	TMap<TWeakObjectPtr<AVillager>, FInstanceRef> WorkerToTreeAssignments;
+	TMap<FInstanceRef, TWeakObjectPtr<AVillager>> TreeToWorkerAssignments;
+	
 	void ScanArea(); // Scan an circular area to detect trees in range
-
+	void RemoveTree(int InstanceIdx);
+	
+	void DistributeWork(AVillager* Worker); // Assign a tree to a given villager
+	void RemoveWork(AVillager* Worker); // Remove the assigned tree from the given villager
 };

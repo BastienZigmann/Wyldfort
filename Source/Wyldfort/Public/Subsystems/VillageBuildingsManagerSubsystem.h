@@ -8,9 +8,6 @@
 #include "VillageBuildingsManagerSubsystem.generated.h"
 
 class ABaseBuilding;
-class AHouse;
-class FoodMarket;
-class AWell;
 
 UCLASS()
 class WYLDFORT_API UVillageBuildingsManagerSubsystem : public UBaseSubsystem

@@ -59,3 +59,8 @@ void AVillager::Tick(float DeltaTime)
         DebugLog("Villager is in critical condition!", this);
     }
 }
+
+void AVillager::SetWorkBuilding(ABaseBuilding* Building) 
+{ 
+    Work = Building; 
+}

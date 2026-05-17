@@ -4,6 +4,7 @@
 #include "Buildings/WoodCuttingCamp.h"
 #include "Engine/OverlapResult.h"
 #include "Ressources/RessourceNode.h"
+#include "Characters/Villager.h"
 #include "Components/GatherableRessource.h"
 
 AWoodCuttingCamp::AWoodCuttingCamp()
@@ -27,10 +28,89 @@ void AWoodCuttingCamp::BeginPlay()
 	}
 }
 
+void AWoodCuttingCamp::AssignVillager(AVillager* Worker)
+{
+	if (!Worker)
+	{
+		WarningLog("Attempted to assign null villager to WoodCuttingCamp", this);
+		return;
+	}
+
+	if (AssignedWorkers.Contains(Worker))
+	{
+		WarningLog("Villager already assigned to this WoodCuttingCamp", this);
+		return;
+	}
+
+	AssignedWorkers.Add(Worker);
+	Worker->SetWorkBuilding(this);
+	DistributeWork(Worker);
+	DebugLog("Villager assigned to WoodCuttingCamp", this);
+}
+
+void AWoodCuttingCamp::UnassignVillager(AVillager* Worker)
+{
+	if (!Worker)
+	{
+		WarningLog("Attempted to unassign null villager from WoodCuttingCamp", this);
+		return;
+	}
+
+	if (!AssignedWorkers.Contains(Worker))
+	{
+		WarningLog("Villager not assigned to this WoodCuttingCamp", this);
+		return;
+	}
+
+	AssignedWorkers.Remove(Worker);
+	Worker->SetWorkBuilding(nullptr);
+	RemoveWork(Worker);
+	DebugLog("Villager unassigned from WoodCuttingCamp", this);
+}
+
+void AWoodCuttingCamp::DistributeWork(AVillager* Worker)
+{
+	if (!Worker) return;
+	if (!AssignedWorkers.Contains(Worker)) return; // If worker doesn't work here
+	if (WorkerToTreeAssignments.Contains(Worker)) return; // Already a tree assigned
+	
+	// Find an unassigned tree from the pool
+	for (const FInstanceRef& TreeRef : TreePool)
+	{
+		if (TreeToWorkerAssignments.Contains(TreeRef)) continue; // Already assigned to someone else
+
+		// Assign this tree to the worker
+		WorkerToTreeAssignments.Add(Worker, TreeRef);
+		TreeToWorkerAssignments.Add(TreeRef, Worker);
+
+		DebugLog(FString::Printf(TEXT("Assigned tree instance %d to worker %s"), TreeRef.InstanceIndex, *Worker->GetName()), this);
+		break;
+	}
+
+}
+
+void AWoodCuttingCamp::RemoveWork(AVillager* Worker)
+{
+	if (!Worker) return;
+	if (!WorkerToTreeAssignments.Contains(Worker)) return; // If the worker isn't assigned any tree, do nothing
+
+	FInstanceRef tree = WorkerToTreeAssignments.FindRef(Worker);
+
+	WorkerToTreeAssignments.Remove(Worker);
+	TreeToWorkerAssignments.Remove(tree);
+
+	DebugLog(FString::Printf(TEXT("Removed assigned tree instance %d from worker %s"), tree.InstanceIndex, *Worker->GetName()), this);
+
+}
+
+// ************************************************************************
+// ******************* Tree Detection and storage *************************
+// ************************************************************************
+
 void AWoodCuttingCamp::ScanArea()
 {
     if (!GetWorld()) return;
-	if (TreePool.Num() >= NumberOfWorkerAssigned * 2) return; // Fixed: should be >= not <
+	if (TreePool.Num() >= AssignedWorkers.Num() * 2) return; // Fixed: should be >= not <
 
 	const FVector Origin = GetActorLocation();
 	const float RadiusSqr = ScanRadius * ScanRadius;
@@ -126,7 +206,7 @@ void AWoodCuttingCamp::ScanArea()
 	Found.Sort([](const FPair& A, const FPair& B) { return A.DistSqr < B.DistSqr; });
 	
 	int32 Added = 0;
-	const int32 MaxToAdd = (NumberOfWorkerAssigned * 2) - TreePool.Num();
+	const int32 MaxToAdd = (AssignedWorkers.Num() * 2) - TreePool.Num();
 	for (int32 i = 0; i < Found.Num() && Added < MaxToAdd; ++i)
 	{
 		TreePool.Add(Found[i].InstanceRef);

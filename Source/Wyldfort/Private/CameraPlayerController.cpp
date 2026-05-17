@@ -55,11 +55,7 @@ void ACameraPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
 
     UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(InputComponent);
-    if (!EnhancedInputComponent)
-    {
-        ErrorLog("EnhancedInputComponent not found!", this);
-        return;
-    }
+
     if (!MoveAction) WarningLog("MoveAction not set!", this);
     else EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACameraPlayerController::MoveCamera);
     if (!ZoomAction) WarningLog("ZoomAction not set!", this);

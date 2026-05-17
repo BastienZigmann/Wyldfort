@@ -15,7 +15,7 @@ void UTimeControlSubsystem::Tick(float DeltaTime)
 
     const double now = GetWorld()->GetRealTimeSeconds();
     if (LastTime <= 0.) LastTime = now; // Initial Case
-    DeltaSeconds = static_cast<float>(LastTime - now);
+    DeltaSeconds = static_cast<float>(now - LastTime);
     LastTime = now;
 
 }
@@ -36,10 +36,11 @@ void UTimeControlSubsystem::UnregisterTimeAffected(AActor* Actor)
     if(IsValid(Actor))
     {
         Actor->CustomTimeDilation = 1.f;
-        if (AAIController* AI = Cast<AAIController>(Actor->GetInstigatorController()))
-		{
-			if (UBrainComponent* Brain = AI->BrainComponent) { Brain->ResumeLogic(TEXT("Unregister")); }
-		}
+        if (APawn* Pawn = Cast<APawn>(Actor))
+            if(AAIController* AI = Cast<AAIController>(Pawn->GetController()))
+    			if (UBrainComponent* Brain = AI->BrainComponent)
+                    Brain->ResumeLogic(TEXT("Unregister"));
+
 		for (UActorComponent* C : Actor->GetComponents())
 		{
             if (USkeletalMeshComponent* Skel = Cast<USkeletalMeshComponent>(C))
@@ -62,8 +63,8 @@ void UTimeControlSubsystem::SetPaused(bool bInPaused)
 
 void UTimeControlSubsystem::SetSpeed(float InSpeed)
 {
-    if (InSpeed == Speed) return; // No change needed, same speed
     InSpeed = FMath::Clamp(InSpeed, 0.1f, 4.0f);
+    if (FMath::IsNearlyEqual(InSpeed, Speed)) return; // No change needed, same speed
     Speed = InSpeed;
 
     ApplyToActors();

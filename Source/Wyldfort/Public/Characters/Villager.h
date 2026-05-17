@@ -21,6 +21,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UVillagerMovementComponent* GetVillagerMovementComponent() const { return VillagerMovementComponent; };
+	void SetWorkBuilding(ABaseBuilding* Building);
 	
 private:
 
@@ -35,6 +36,7 @@ private:
 	float Thirst;
 	float Fatigue;
 
-	
+	UPROPERTY()
+	TObjectPtr<ABaseBuilding> Work = nullptr;
 
 };
