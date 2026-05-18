@@ -26,10 +26,7 @@ public:
 	float GetGatherDuration() const { return GatherDuration; }
 	bool IsDepleted() const { return bDepleted; }
 
-	/**
-	 * Happens once only
-	 */
-	FOnDepleted OnDepleted;
+	void BindOnDepleted(const FSimpleDelegate& Delegate) { OnDepleted.Add(Delegate); }
 
 private:
 	UPROPERTY(EditAnywhere, Category = "Resource")
@@ -41,4 +38,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Resource")
 	float GatherDuration;
 	bool bDepleted = false;
+
+	/**
+	 * Happens once only
+	 */
+	FOnDepleted OnDepleted;
 };
