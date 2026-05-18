@@ -18,6 +18,6 @@ struct FResourceStack
 {
 	GENERATED_BODY()
 
-	EResourceType type;
-	int32 quantity;
+	EResourceType Type;
+	int32 Quantity;
 };

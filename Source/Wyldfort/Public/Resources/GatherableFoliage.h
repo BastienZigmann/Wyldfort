@@ -5,15 +5,15 @@
 #include "CoreMinimal.h"
 #include "FoliageInstancedStaticMeshComponent.h"
 #include "Core/Types/ResourceTypes.h"
-#include "GatherableResource.generated.h"
+#include "GatherableFoliage.generated.h"
 
 UCLASS()
-class WYLDFORT_API UGatherableResource : public UFoliageInstancedStaticMeshComponent
+class WYLDFORT_API UGatherableFoliage : public UFoliageInstancedStaticMeshComponent
 {
 	GENERATED_BODY()
 	
 public:
-	UGatherableResource();
+	UGatherableFoliage();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Resource")
 	EResourceType ResourceType = EResourceType::None;

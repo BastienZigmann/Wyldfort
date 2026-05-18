@@ -1,15 +1,15 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Components/GatherableResource.h"
+#include "Resources/GatherableFoliage.h"
 #include "Misc/Guid.h"
 #include "UObject/Package.h"
 
-UGatherableResource::UGatherableResource()
+UGatherableFoliage::UGatherableFoliage()
 {
 }
 
-void UGatherableResource::OnRegister()
+void UGatherableFoliage::OnRegister()
 {
     Super::OnRegister();
 
@@ -30,7 +30,7 @@ void UGatherableResource::OnRegister()
 }
 
 #if WITH_EDITOR
-void UGatherableResource::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+void UGatherableFoliage::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
 {
     Super::PostEditChangeProperty(PropertyChangedEvent);
     // Keep GUID valid when editing in the editor

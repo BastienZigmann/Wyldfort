@@ -5,7 +5,7 @@
 #include "Engine/OverlapResult.h"
 #include "Resources/ResourceNode.h"
 #include "Characters/Villager.h"
-#include "Components/GatherableResource.h"
+#include "Resources/GatherableFoliage.h"
 
 AWoodCuttingCamp::AWoodCuttingCamp()
 {
@@ -141,7 +141,7 @@ void AWoodCuttingCamp::ScanArea()
 	if (bAny)
 	{
 		// Track which components we've already processed to avoid duplicate work
-		TSet<UGatherableResource*> ProcessedComponents;
+		TSet<UGatherableFoliage*> ProcessedComponents;
 		ProcessedComponents.Reserve(32);
 
 		for (const FOverlapResult& R : Overlaps)
@@ -150,7 +150,7 @@ void AWoodCuttingCamp::ScanArea()
 			if (!Prim) continue;
 
 			// Only consider our custom gatherable foliage component type
-			if (UGatherableResource* GatherComp = Cast<UGatherableResource>(Prim))
+			if (UGatherableFoliage* GatherComp = Cast<UGatherableFoliage>(Prim))
 			{
 				// Skip if we've already processed this component
 				if (ProcessedComponents.Contains(GatherComp)) continue;
@@ -250,8 +250,8 @@ void AWoodCuttingCamp::RemoveTree(int InstanceIdx)
 	}
 
 	// Find the component to remove the instance from
-	UGatherableResource* GatherComp = nullptr;
-	for (TObjectIterator<UGatherableResource> It; It; ++It)
+	UGatherableFoliage* GatherComp = nullptr;
+	for (TObjectIterator<UGatherableFoliage> It; It; ++It)
 	{
 		if (It->GetWorld() == GetWorld() && It->ComponentGuid == FoundRef->ComponentGuid)
 		{
