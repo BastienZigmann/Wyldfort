@@ -7,7 +7,7 @@
 #include "Core/Types/ResourceTypes.h"
 #include "ResourceComponent.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnDepleted);
+DECLARE_MULTICAST_DELEGATE(FOnDepleted); 
 
 /**
  * Resource component to put on resource node
@@ -26,12 +26,19 @@ public:
 	float GetGatherDuration() const { return GatherDuration; }
 	bool IsDepleted() const { return bDepleted; }
 
+	/**
+	 * Happens once only
+	 */
 	FOnDepleted OnDepleted;
 
 private:
+	UPROPERTY(EditAnywhere, Category = "Resource")
 	EResourceType Type;
+	UPROPERTY(EditAnywhere, Category = "Resource")
 	int32 TotalAmount;
+	UPROPERTY(EditAnywhere, Category = "Resource")
 	int32 AmountPerGather;
+	UPROPERTY(EditAnywhere, Category = "Resource")
 	float GatherDuration;
 	bool bDepleted = false;
 };

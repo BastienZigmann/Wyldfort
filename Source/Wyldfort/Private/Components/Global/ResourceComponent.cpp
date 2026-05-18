@@ -10,6 +10,8 @@ UResourceComponent::UResourceComponent()
 
 FResourceStack UResourceComponent::Gather() 
 {
+    if (IsDepleted()) return FResourceStack{};
+    
     int32 gathered = FMath::Min(TotalAmount, AmountPerGather);
 
     FResourceStack stack;
