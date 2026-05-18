@@ -10,7 +10,7 @@ UResourceComponent::UResourceComponent()
 
 FResourceStack UResourceComponent::Gather() 
 {
-    int32 gathered = FMath::Min(0, TotalAmount - AmountPerGather);
+    int32 gathered = FMath::Min(TotalAmount, AmountPerGather);
 
     FResourceStack stack;
     stack.Type = Type;
@@ -18,7 +18,10 @@ FResourceStack UResourceComponent::Gather()
 
     TotalAmount -= gathered;
     if (TotalAmount == 0)
+    {
         bDepleted = true;
+        OnDepleted.Broadcast();
+    }
 
     return stack;
 }

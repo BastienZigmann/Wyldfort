@@ -7,6 +7,8 @@
 #include "Core/Types/ResourceTypes.h"
 #include "ResourceComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE(FOnDepleted);
+
 /**
  * Resource component to put on resource node
  */
@@ -20,9 +22,11 @@ public:
 
 	FResourceStack Gather();
 
-	int32 GetAvailableAmount() { return TotalAmount; }
-	float GetGatherDuration() { return GatherDuration; }
-	bool IsDepleted() { return bDepleted; }
+	int32 GetAvailableAmount() const { return TotalAmount; }
+	float GetGatherDuration() const { return GatherDuration; }
+	bool IsDepleted() const { return bDepleted; }
+
+	FOnDepleted OnDepleted;
 
 private:
 	EResourceType Type;
