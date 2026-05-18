@@ -13,10 +13,3 @@ AResourceNode::AResourceNode()
 	ResourceComponent = CreateDefaultSubobject<UResourceComponent>(TEXT("ResourceComponent"));
 
 }
-
-// Called when the game starts or when spawned
-void AResourceNode::BeginPlay()
-{
-	Super::BeginPlay();
-
-}
