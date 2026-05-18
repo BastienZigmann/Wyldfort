@@ -9,6 +9,7 @@
 #include "ResourceNode.generated.h"
 
 class UStaticMesh;
+class UResourceComponent;
 
 UCLASS()
 class WYLDFORT_API AResourceNode : public ABaseActor
@@ -19,14 +20,14 @@ public:
 	// Sets default values for this actor's properties
 	AResourceNode();
 
+	UResourceComponent* GetResourceComponent() const { return ResourceComponent; }
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 private:
-	EResourceType ResourceType = EResourceType::None;
-	int32 ResourceAmount = 100;
-	int32 ResourcePerGather = 10;
-	float GatherTime = 2.0f;
+	UPROPERTY()
+	TObjectPtr<UResourceComponent> ResourceComponent;
 
 };

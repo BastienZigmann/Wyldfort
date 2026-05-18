@@ -7,7 +7,7 @@
 #include "Core/Types/ResourceTypes.h"
 #include "ResourceComponent.generated.h"
 
-DECLARE_MULTICAST_DELEGATE(FOnDepleted); 
+DECLARE_MULTICAST_DELEGATE(FOnDepletedDelegate); 
 
 /**
  * Resource component to put on resource node
@@ -42,5 +42,5 @@ private:
 	/**
 	 * Happens once only
 	 */
-	FOnDepleted OnDepleted;
+	FOnDepletedDelegate OnDepleted;
 };
