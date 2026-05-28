@@ -254,7 +254,7 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 	if (!GatherComp)
 	{
 		ErrorLog(FString::Printf(TEXT("Component with GUID not found for resource instance %d"), InstanceIdx), this);
-		ResourceInstancePool.Remove(*FoundRef);
+		ResourceInstancePool.RemoveSingle(*FoundRef);
 		return;
 	}
 
@@ -262,7 +262,7 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 	if (InstanceIdx < 0 || InstanceIdx >= TotalInstances)
 	{
 		ErrorLog(FString::Printf(TEXT("Invalid instance index %d (total: %d)"), InstanceIdx, TotalInstances), this);
-		ResourceInstancePool.Remove(*FoundRef);
+		ResourceInstancePool.RemoveSingle(*FoundRef);
 		return;
 	}
 
@@ -271,19 +271,21 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 	if (!bSuccess)
 	{
 		ErrorLog(FString::Printf(TEXT("Failed to remove resource instance %d from component"), InstanceIdx), this);
-		ResourceInstancePool.Remove(*FoundRef);
+		ResourceInstancePool.RemoveSingle(*FoundRef);
 		return;
 	}
 
 	DebugLog(FString::Printf(TEXT("Removed resource instance %d from foliage component"), InstanceIdx), this);
 
 	// Remove from pool
+    const bool bWasLastInstance = FoundRef->NeedUpdateIfRemoval;
+    const FGuid SavedGuid = FoundRef->ComponentGuid;
 	ResourceInstancePool.RemoveSingle(*FoundRef);
 
 	// Update indices: When an instance is removed, the last instance moves to fill its spot
 	// So if we removed something other than the last instance, we need to update the reference
 	// that pointed to the last instance
-	if (FoundRef->NeedUpdateIfRemoval)
+	if (bWasLastInstance)
 	{
 		// We removed the last instance, no index updates needed
 		DebugLog("Removed last instance, no index updates needed", this);
@@ -295,7 +297,7 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 		const int32 LastInstanceIdx = TotalInstances - 1; // Before removal
 		FInstanceRef* LastRef = ResourceInstancePool.FindByPredicate([&](const FInstanceRef& Ref)
         {
-            return Ref.ComponentGuid == FoundRef->ComponentGuid && Ref.InstanceIndex == LastInstanceIdx;
+            return Ref.ComponentGuid == SavedGuid && Ref.InstanceIndex == LastInstanceIdx;
         });
         if (LastRef)
         {
