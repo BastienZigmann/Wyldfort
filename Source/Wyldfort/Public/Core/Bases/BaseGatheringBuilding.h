@@ -81,4 +81,6 @@ private:
 	void DistributeWork(AVillager* Worker); // Assign a resource to a given villager
 	void RemoveWork(AVillager* Worker); // Remove the assigned resource from the given villager
 
+	void OnResourceDepleted(AVillager* Worker);
+
 };

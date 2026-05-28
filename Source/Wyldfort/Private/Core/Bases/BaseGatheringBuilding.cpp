@@ -2,6 +2,7 @@
 #include "Characters/Villager.h"
 #include "Resources/GatherableFoliage.h"
 #include "Resources/ResourceNode.h"
+#include "Components/Global/ResourceComponent.h"
 #include "Engine/OverlapResult.h"
 
 ABaseGatheringBuilding::ABaseGatheringBuilding()
@@ -68,19 +69,54 @@ void ABaseGatheringBuilding::DistributeWork(AVillager* Worker)
 	if (!AssignedWorkers.Contains(Worker)) return; // If worker doesn't work here
 	if (WorkerToResourceAssignments.Contains(Worker)) return; // Already a resource assigned
 	
+    if (!ResourceNodeClass)
+    {
+        ErrorLog(FString::Printf(TEXT("ResourceNodeClass missing in %s"), *GetName()), this);
+        return;
+    }
+
 	// Find an unassigned resource from the pool
-	for (const FInstanceRef& ResourceRef : ResourceInstancePool)
+    FInstanceRef* FoundRef = nullptr;
+    for (FInstanceRef& ResourceRef : ResourceInstancePool)
 	{
 		if (ResourceToWorkerAssignments.Contains(ResourceRef)) continue; // Already assigned to someone else
 
-		// Assign this resource to the worker
-		WorkerToResourceAssignments.Add(Worker, ResourceRef);
-		ResourceToWorkerAssignments.Add(ResourceRef, Worker);
-
+        FoundRef = &ResourceRef;
 		DebugLog(FString::Printf(TEXT("Assigned resource instance %d to worker %s"), ResourceRef.InstanceIndex, *Worker->GetName()), this);
 		break;
 	}
 
+    if (!FoundRef)
+    {
+        WarningLog(FString::Printf(TEXT("Unable to find and assign work in %s to %s"), *GetName(), *Worker->GetName()), this);
+        return;
+    }
+
+    FActorSpawnParameters spawnParams;
+    spawnParams.Owner = this;
+    AResourceNode* Node = GetWorld()->SpawnActor<AResourceNode>(ResourceNodeClass, FoundRef->Location, FRotator::ZeroRotator, spawnParams);
+
+    if (!Node)
+    {
+        ErrorLog("Failed to spawn ResourceNode", this);
+        return;
+    }
+
+    FoundRef->Node = Node;
+
+    FInstanceRef SavedRef = *FoundRef;
+    RemoveResource(FoundRef->InstanceIndex);
+
+    UResourceComponent* ResComp = Node->GetResourceComponent();
+    if (ResComp)
+    {
+        ResComp->BindOnDepleted(FSimpleDelegate::CreateUObject(this, &ABaseGatheringBuilding::OnResourceDepleted, Worker));
+    }
+    
+    WorkerToResourceAssignments.Add(Worker, SavedRef);
+    ResourceToWorkerAssignments.Add(SavedRef, Worker);
+
+    DebugLog(FString::Printf(TEXT("Spawned ResourceNode for worker %s"), *Worker->GetName()), this);
 }
 
 void ABaseGatheringBuilding::RemoveWork(AVillager* Worker)
