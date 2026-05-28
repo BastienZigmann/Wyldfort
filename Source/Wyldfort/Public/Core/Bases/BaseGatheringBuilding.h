@@ -69,7 +69,7 @@ private:
 	// Scan
 	FTimerHandle ScanTimerHandle;
 
-	TSet<FInstanceRef> ResourceInstancePool;
+	TArray<FInstanceRef> ResourceInstancePool;
 	TSet<TWeakObjectPtr<AVillager>> AssignedWorkers;
 	
 	TMap<TWeakObjectPtr<AVillager>, FInstanceRef> WorkerToResourceAssignments;

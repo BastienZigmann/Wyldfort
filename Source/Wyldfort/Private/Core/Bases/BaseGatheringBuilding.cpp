@@ -278,7 +278,7 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 	DebugLog(FString::Printf(TEXT("Removed resource instance %d from foliage component"), InstanceIdx), this);
 
 	// Remove from pool
-	ResourceInstancePool.Remove(*FoundRef);
+	ResourceInstancePool.RemoveSingle(*FoundRef);
 
 	// Update indices: When an instance is removed, the last instance moves to fill its spot
 	// So if we removed something other than the last instance, we need to update the reference
@@ -293,23 +293,17 @@ void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
 		// We removed a middle instance, so the last instance moved to this index
 		// Find and update the reference that pointed to the last instance
 		const int32 LastInstanceIdx = TotalInstances - 1; // Before removal
+		FInstanceRef* LastRef = ResourceInstancePool.FindByPredicate([&](const FInstanceRef& Ref)
+        {
+            return Ref.ComponentGuid == FoundRef->ComponentGuid && Ref.InstanceIndex == LastInstanceIdx;
+        });
+        if (LastRef)
+        {
+            LastRef->InstanceIndex = InstanceIdx;
+            LastRef->NeedUpdateIfRemoval = false;
+            DebugLog(FString::Printf(TEXT("Updated instance index from %d to %d"), LastInstanceIdx, InstanceIdx), this);
+        }
 		
-		for (FInstanceRef& Ref : ResourceInstancePool)
-		{
-			if (Ref.ComponentGuid == FoundRef->ComponentGuid && Ref.InstanceIndex == LastInstanceIdx)
-			{
-				// This reference pointed to the last instance, which is now at the removed index
-				FInstanceRef UpdatedRef = Ref;
-				UpdatedRef.InstanceIndex = InstanceIdx;
-				UpdatedRef.NeedUpdateIfRemoval = false; // It's no longer the last instance
-				
-				ResourceInstancePool.Remove(Ref);
-				ResourceInstancePool.Add(UpdatedRef);
-				
-				DebugLog(FString::Printf(TEXT("Updated instance index from %d to %d"), LastInstanceIdx, InstanceIdx), this);
-				break;
-			}
-		}
 	}
 
 	DebugLog(FString::Printf(TEXT("Resource pool updated (total: %d)"), ResourceInstancePool.Num()), this);
