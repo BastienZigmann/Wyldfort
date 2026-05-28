@@ -26,40 +26,40 @@ void ABaseGatheringBuilding::AssignVillager(AVillager* Worker)
 {
 	if (!Worker)
 	{
-		WarningLog("Attempted to assign null villager to WoodCuttingCamp", this);
+		WarningLog(FString::Printf(TEXT("Attempted to assign null villager to %s"), *GetName()), this);
 		return;
 	}
 
 	if (AssignedWorkers.Contains(Worker))
 	{
-		WarningLog("Villager already assigned to this WoodCuttingCamp", this);
+		WarningLog(FString::Printf(TEXT("Villager already assigned to this %s"), *GetName()), this);
 		return;
 	}
 
 	AssignedWorkers.Add(Worker);
 	Worker->SetWorkBuilding(this);
 	DistributeWork(Worker);
-	DebugLog("Villager assigned to WoodCuttingCamp", this);
+	DebugLog(FString::Printf(TEXT("Villager assigned to %s"), *GetName()), this);
 }
 
 void ABaseGatheringBuilding::UnassignVillager(AVillager* Worker)
 {
 	if (!Worker)
 	{
-		WarningLog("Attempted to unassign null villager from WoodCuttingCamp", this);
+		WarningLog(FString::Printf(TEXT("Attempted to unassign null villager from %s"), *GetName()), this);
 		return;
 	}
 
 	if (!AssignedWorkers.Contains(Worker))
 	{
-		WarningLog("Villager not assigned to this WoodCuttingCamp", this);
+		WarningLog(FString::Printf(TEXT("Villager not assigned to this %s"), *GetName()), this);
 		return;
 	}
 
 	AssignedWorkers.Remove(Worker);
 	Worker->SetWorkBuilding(nullptr);
 	RemoveWork(Worker);
-	DebugLog("Villager unassigned from WoodCuttingCamp", this);
+	DebugLog(FString::Printf(TEXT("Villager unassigned from %s"), *GetName()), this);
 }
 
 void ABaseGatheringBuilding::DistributeWork(AVillager* Worker)

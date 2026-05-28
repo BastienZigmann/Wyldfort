@@ -75,7 +75,7 @@ private:
 	TMap<TWeakObjectPtr<AVillager>, FInstanceRef> WorkerToResourceAssignments;
 	TMap<FInstanceRef, TWeakObjectPtr<AVillager>> ResourceToWorkerAssignments;
 
-	virtual void ScanArea(); // Scan an circular area to detect resources in range
+	void ScanArea(); // Scan an circular area to detect resources in range
 	void RemoveResource(int InstanceIdx);
 	
 	void DistributeWork(AVillager* Worker); // Assign a resource to a given villager
