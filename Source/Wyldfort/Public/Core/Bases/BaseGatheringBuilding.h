@@ -90,6 +90,7 @@ private:
 	void RemoveWork(AVillager* Worker); // Remove the assigned resource from the given villager
 	
 	// Inventory
+	UPROPERTY()
 	TObjectPtr<UInventoryComponent> InventoryComponent;
 
 };
