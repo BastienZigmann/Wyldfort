@@ -3,6 +3,7 @@
 
 #include "Core/Bases/BaseCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/Global/InventoryComponent.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -11,6 +12,13 @@ ABaseCharacter::ABaseCharacter()
 	PrimaryActorTick.bCanEverTick = false;
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
     GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+
+	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
+	if (!InventoryComponent)
+	{
+		ErrorLog("Failed to create inventory component", this);
+		return;
+	}
 }
 
 // Called when the game starts or when spawned

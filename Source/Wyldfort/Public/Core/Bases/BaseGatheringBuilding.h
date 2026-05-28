@@ -9,6 +9,7 @@
 
 class AResourceNode;
 class AVillager;
+class UInventoryComponent;
 
 // UFoliageInstancedStaticMeshComponent Has many instance, when removing one, the last in the list is moved at the index of the removed one.
 // So when saving it, NeedUpdateIfRemoval is true if it's the last, meaning it would need update
@@ -58,8 +59,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = "Resource")
 	EResourceType ResourceType;
 
+	// Workers Management
 	void AssignVillager(AVillager* Worker); // Assign the villager to work here
 	void UnassignVillager(AVillager* Worker); // Unassign the villager from this building
+
+	// Inventory
+	UInventoryComponent* GetInventoryComponent() {return InventoryComponent;}
 
 protected:
 	virtual void BeginPlay() override;
@@ -68,19 +73,23 @@ private:
 
 	// Scan
 	FTimerHandle ScanTimerHandle;
+	void ScanArea(); // Scan an circular area to detect resources in range
 
+	// Respource
 	TArray<FInstanceRef> ResourceInstancePool;
+
+	void RemoveResource(int InstanceIdx);
+	void OnResourceDepleted(AVillager* Worker);
+
+	// Workers Management
 	TSet<TWeakObjectPtr<AVillager>> AssignedWorkers;
-	
 	TMap<TWeakObjectPtr<AVillager>, FInstanceRef> WorkerToResourceAssignments;
 	TMap<FInstanceRef, TWeakObjectPtr<AVillager>> ResourceToWorkerAssignments;
 
-	void ScanArea(); // Scan an circular area to detect resources in range
-	void RemoveResource(int InstanceIdx);
-	
 	void DistributeWork(AVillager* Worker); // Assign a resource to a given villager
 	void RemoveWork(AVillager* Worker); // Remove the assigned resource from the given villager
-
-	void OnResourceDepleted(AVillager* Worker);
+	
+	// Inventory
+	TObjectPtr<UInventoryComponent> InventoryComponent;
 
 };

@@ -3,12 +3,20 @@
 #include "Resources/GatherableFoliage.h"
 #include "Resources/ResourceNode.h"
 #include "Components/Global/ResourceComponent.h"
+#include "Components/Global/InventoryComponent.h"
 #include "Engine/OverlapResult.h"
 
 ABaseGatheringBuilding::ABaseGatheringBuilding()
 {
     BuildingType = EBuildingType::ResourceGathering;
     BuildingInteractionType = EBuildingInteractionType::Gather;
+
+    InventoryComponent = CreateDefaultSubobject<UInventoryComponent>("InventoryComponent");
+    if (!InventoryComponent)
+	{
+		ErrorLog("Failed to create inventory component", this);
+		return;
+	}
 }
 
 void ABaseGatheringBuilding::BeginPlay() 
@@ -255,6 +263,11 @@ void ABaseGatheringBuilding::ScanArea()
 		DrawDebugLine(GetWorld(), Origin, Loc, FColor::Green, false, DebugDuration, 0, 2.f);
 		DrawDebugSphere(GetWorld(), Loc, 16.f, 8, FColor::Cyan, false, DebugDuration, 0, 1.f);
 	}
+}
+
+void ABaseGatheringBuilding::OnResourceDepleted(AVillager* Worker)
+{
+    DebugLog("Resource depleted", this);
 }
 
 void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)

@@ -7,6 +7,8 @@
 #include "Core/Utils/Logger.h"
 #include "BaseCharacter.generated.h"
 
+class UInventoryComponent;
+
 UCLASS()
 class WYLDFORT_API ABaseCharacter : public ACharacter, public FLogger
 {
@@ -15,6 +17,8 @@ class WYLDFORT_API ABaseCharacter : public ACharacter, public FLogger
 public:
 	// Sets default values for this character's properties
 	ABaseCharacter();
+
+	UInventoryComponent* GetInventoryComponent() {return InventoryComponent;}
 
 protected:
 	// Called when the game starts or when spawned
@@ -26,5 +30,8 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+	UPROPERTY()
+	TObjectPtr<UInventoryComponent> InventoryComponent;
 
 };
