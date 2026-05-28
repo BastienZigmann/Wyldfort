@@ -113,7 +113,7 @@ void ABaseGatheringBuilding::DistributeWork(AVillager* Worker)
     FoundRef->Node = Node;
 
     FInstanceRef SavedRef = *FoundRef;
-    RemoveResource(FoundRef->InstanceIndex);
+    DespawnFoliageInstance(FoundRef->InstanceIndex);
 
     UResourceComponent* ResComp = Node->GetResourceComponent();
     if (ResComp)
@@ -268,9 +268,14 @@ void ABaseGatheringBuilding::ScanArea()
 void ABaseGatheringBuilding::OnResourceDepleted(AVillager* Worker)
 {
     DebugLog("Resource depleted", this);
+    FInstanceRef resource = WorkerToResourceAssignments.FindRef(Worker);
+    if (resource.Node)
+        resource.Node->Destroy();
+    RemoveWork(Worker);
+    DistributeWork(Worker);
 }
 
-void ABaseGatheringBuilding::RemoveResource(int InstanceIdx)
+void ABaseGatheringBuilding::DespawnFoliageInstance(int InstanceIdx)
 {
 	// Find the resource in our pool
 	FInstanceRef* FoundRef = nullptr;

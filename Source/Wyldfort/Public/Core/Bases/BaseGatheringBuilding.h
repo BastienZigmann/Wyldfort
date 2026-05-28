@@ -78,7 +78,7 @@ private:
 	// Respource
 	TArray<FInstanceRef> ResourceInstancePool;
 
-	void RemoveResource(int InstanceIdx);
+	void DespawnFoliageInstance(int InstanceIdx);
 	void OnResourceDepleted(AVillager* Worker);
 
 	// Workers Management
