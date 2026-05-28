@@ -111,7 +111,7 @@ void ABaseGatheringBuilding::ScanArea()
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldStatic);
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-	FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(WoodCampScan), /*bTraceComplex=*/false);
+	FCollisionQueryParams QueryParams(SCENE_QUERY_STAT(GatheringBuildingScan), /*bTraceComplex=*/false);
 	QueryParams.AddIgnoredActor(this);
 
 	// Sphere overlap 
