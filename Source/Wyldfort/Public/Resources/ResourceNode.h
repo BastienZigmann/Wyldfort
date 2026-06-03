@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Resources/ResourceTypes.h"
 #include "Core/Bases/BaseActor.h"
 #include "ResourceNode.generated.h"
 

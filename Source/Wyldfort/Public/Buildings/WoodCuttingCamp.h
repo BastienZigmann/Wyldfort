@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/BaseGatheringBuilding.h"
+#include "Buildings/BaseGatheringBuilding.h"
 #include "WoodCuttingCamp.generated.h"
 
 // Scan surrounding foliage instances to find gatherable trees

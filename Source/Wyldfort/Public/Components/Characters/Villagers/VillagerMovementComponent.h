@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/Components/BaseVillagerComponent.h"
+#include "Components/Characters/Villagers/BaseVillagerComponent.h"
 #include "VillagerMovementComponent.generated.h"
 
 class ABaseBuilding;

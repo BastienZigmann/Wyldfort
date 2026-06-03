@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Components/Characters/Villagers/MovementAIController.h"
+#include "AI/Controllers/MovementAIController.h"
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
 #include "Characters/Villager.h"
 #include "Navigation/PathFollowingComponent.h"

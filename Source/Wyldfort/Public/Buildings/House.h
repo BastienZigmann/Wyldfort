@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/BaseBuilding.h"
+#include "Buildings/BaseBuilding.h"
 #include "House.generated.h"
 
 /**

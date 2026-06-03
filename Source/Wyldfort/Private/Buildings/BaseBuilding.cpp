@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Core/Bases/BaseBuilding.h"
+#include "Buildings/BaseBuilding.h"
 #include "Buildings/Parts/EntryPoint.h"
 #include "Buildings/Parts/ExitPoint.h"
 #include "Buildings/Parts/PausePoint.h"

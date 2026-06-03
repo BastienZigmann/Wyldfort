@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/Components/BaseActorComponent.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Resources/ResourceTypes.h"
 #include "ResourceComponent.generated.h"
 
 DECLARE_MULTICAST_DELEGATE(FOnDepletedDelegate); 

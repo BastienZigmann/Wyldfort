@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "FoliageInstancedStaticMeshComponent.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Resources/ResourceTypes.h"
 #include "GatherableFoliage.generated.h"
 
 UCLASS()

@@ -3,8 +3,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/BaseBuilding.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Buildings/BaseBuilding.h"
+#include "Resources/ResourceTypes.h"
 #include "BaseGatheringBuilding.generated.h"
 
 class AResourceNode;

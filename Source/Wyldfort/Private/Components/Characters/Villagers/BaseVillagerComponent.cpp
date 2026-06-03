@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Core/Bases/Components/BaseVillagerComponent.h"
+#include "Components/Characters/Villagers/BaseVillagerComponent.h"
 
 UBaseVillagerComponent::UBaseVillagerComponent()
 {

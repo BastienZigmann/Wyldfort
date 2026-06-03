@@ -3,12 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Core/Bases/BaseCharacter.h"
+#include "Characters/BaseCharacter.h"
 #include "Villager.generated.h"
 
 class ABaseBuilding;
 class UVillagerMovementComponent;
 class UTimeAffectedComponent;
+class UBehaviorComponent;
 
 UCLASS()
 class WYLDFORT_API AVillager : public ABaseCharacter
@@ -29,6 +30,8 @@ private:
 	TObjectPtr<UVillagerMovementComponent> VillagerMovementComponent;
 	UPROPERTY()
 	TObjectPtr<UTimeAffectedComponent> TimeAffectedComponent;
+	UPROPERTY()
+	TObjectPtr<UBehaviorComponent> BehaviorComponent;
 	
 	void StartInitialMove();
 

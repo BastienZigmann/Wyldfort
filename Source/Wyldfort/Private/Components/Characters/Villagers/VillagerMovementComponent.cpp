@@ -6,7 +6,7 @@
 #include "Engine/World.h"
 #include "NavigationSystem.h"
 #include <AIController.h>
-#include "Core/Bases/BaseBuilding.h"
+#include "Buildings/BaseBuilding.h"
 
 UVillagerMovementComponent::UVillagerMovementComponent()
 {

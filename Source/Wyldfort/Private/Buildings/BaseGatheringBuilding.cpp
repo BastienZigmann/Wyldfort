@@ -1,4 +1,4 @@
-#include "Core/Bases/BaseGatheringBuilding.h"
+#include "Buildings/BaseGatheringBuilding.h"
 #include "Characters/Villager.h"
 #include "Resources/GatherableFoliage.h"
 #include "Resources/ResourceNode.h"

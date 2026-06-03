@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseSubsystem.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Resources/ResourceTypes.h"
 #include "GlobalStockSubsystem.generated.h"
 
 // Centralized Inventory system, should be notified when a transfer happens in one of the inventory in the game (cf InventoryComponent.h)

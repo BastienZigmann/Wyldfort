@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Core/Bases/BaseActor.h"
-#include "Core/Types/BuildingTypes.h"
+#include "Buildings/BuildingTypes.h"
 #include "BaseBuilding.generated.h"
 
 class UArrowComponent;

@@ -1,5 +1,5 @@
 #include "Buildings/WoodCuttingCamp.h"
-#include "Core/Types/ResourceTypes.h"
+#include "Resources/ResourceTypes.h"
 
 AWoodCuttingCamp::AWoodCuttingCamp()
 {

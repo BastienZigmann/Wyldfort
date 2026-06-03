@@ -1,9 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Characters/Villager.h"
-#include "Components/Characters/Villagers/MovementAIController.h"
+#include "AI/Controllers/MovementAIController.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
+#include "Components/Characters/BehaviorComponent.h"
 #include "Components/Global/TimeAffectedComponent.h"
 
 AVillager::AVillager()
@@ -21,7 +22,13 @@ AVillager::AVillager()
     VillagerMovementComponent = CreateDefaultSubobject<UVillagerMovementComponent>(TEXT("VillagerMovementComponent"));
     if (!VillagerMovementComponent) 
     {
-        DebugLog("Failed to create VillagerMovementComponent!", this);
+        ErrorLog("Failed to create VillagerMovementComponent!", this);
+        return;
+    }
+    BehaviorComponent = CreateDefaultSubobject<UBehaviorComponent>(TEXT("BehaviorComponent"));
+    if (!BehaviorComponent) 
+    {
+        ErrorLog("Failed to create BehaviorComponent", this);
         return;
     }
 

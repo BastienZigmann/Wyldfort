@@ -3,18 +3,15 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Buildings/BaseBuilding.h"
-#include "Well.generated.h"
+#include "AI/States/BaseBehaviorState.h"
+#include "VillagerIdleState.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class WYLDFORT_API AWell : public ABaseBuilding
+class WYLDFORT_API UVillagerIdleState : public UBaseBehaviorState
 {
 	GENERATED_BODY()
-
-public:
-	AWell();
 	
 };

@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Core/Bases/BaseCharacter.h"
+#include "Characters/BaseCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/Global/InventoryComponent.h"
 

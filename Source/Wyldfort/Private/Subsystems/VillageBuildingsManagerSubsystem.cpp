@@ -2,8 +2,8 @@
 
 
 #include "Subsystems/VillageBuildingsManagerSubsystem.h"
-#include "Core/Bases/BaseBuilding.h"
-#include "Core/Types/BuildingTypes.h"
+#include "Buildings/BaseBuilding.h"
+#include "Buildings/BuildingTypes.h"
 
 UVillageBuildingsManagerSubsystem::UVillageBuildingsManagerSubsystem()
 {
