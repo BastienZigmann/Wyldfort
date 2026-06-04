@@ -15,8 +15,8 @@ public:
 	int32 Subscribe(FCallback Callback)
 	{
 		int32 handle = NextHandle++;
-		Subscribers.Add(Handle, MoveTemp(Callback));
-		return Handle;
+		Subscribers.Add(handle, MoveTemp(Callback));
+		return handle;
 	}
 
 	/** Unsubscribe using the handle returned by Subscribe. Safe to call with invalid handles. */
@@ -47,6 +47,6 @@ public:
 
 private:
 	TMap<int32, FCallback> Subscribers;
-	int32 NextHandle;
+	int32 NextHandle = 0;
 
 };

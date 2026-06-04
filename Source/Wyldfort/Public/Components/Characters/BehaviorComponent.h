@@ -15,10 +15,12 @@ class WYLDFORT_API UBehaviorComponent : public UBaseActorComponent
 	
 public:
 	UBehaviorComponent();
+	virtual void BeginPlay() override;
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	void SetState(UBaseBehaviorState newState);
+	void OnCriticalStarving();
+	void OnCriticalThirsty();
 
 private:
 

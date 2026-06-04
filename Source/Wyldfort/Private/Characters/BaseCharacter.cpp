@@ -3,7 +3,10 @@
 
 #include "Characters/BaseCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/Global/TimeAffectedComponent.h"
 #include "Components/Global/InventoryComponent.h"
+#include "Components/Characters/BehaviorComponent.h"
+#include "Components/Characters/NeedsComponent.h"
 
 // Sets default values
 ABaseCharacter::ABaseCharacter()
@@ -13,12 +16,25 @@ ABaseCharacter::ABaseCharacter()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
     GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
 
+	TimeAffectedComponent = CreateDefaultSubobject<UTimeAffectedComponent>(TEXT("TimeAffectedComponent"));
 	InventoryComponent = CreateDefaultSubobject<UInventoryComponent>(TEXT("InventoryComponent"));
 	if (!InventoryComponent)
 	{
 		ErrorLog("Failed to create inventory component", this);
 		return;
 	}
+    BehaviorComponent = CreateDefaultSubobject<UBehaviorComponent>(TEXT("BehaviorComponent"));
+    if (!BehaviorComponent) 
+    {
+        ErrorLog("Failed to create BehaviorComponent", this);
+        return;
+    }
+    NeedsComponent = CreateDefaultSubobject<UNeedsComponent>(TEXT("NeedsComponent"));
+    if (!NeedsComponent) 
+    {
+        ErrorLog("Failed to create NeedsComponent", this);
+        return;
+    }
 }
 
 // Called when the game starts or when spawned

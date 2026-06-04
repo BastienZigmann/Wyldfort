@@ -8,6 +8,9 @@
 #include "BaseCharacter.generated.h"
 
 class UInventoryComponent;
+class UTimeAffectedComponent;
+class UBehaviorComponent;
+class UNeedsComponent;
 
 UCLASS()
 class WYLDFORT_API ABaseCharacter : public ACharacter, public FLogger
@@ -19,6 +22,8 @@ public:
 	ABaseCharacter();
 
 	UInventoryComponent* GetInventoryComponent() {return InventoryComponent;}
+	UBehaviorComponent* GetBehaviorComponent() const { return BehaviorComponent; };
+	UNeedsComponent* GetNeedsComponent() const { return NeedsComponent; };
 
 protected:
 	// Called when the game starts or when spawned
@@ -34,5 +39,11 @@ public:
 private:
 	UPROPERTY()
 	TObjectPtr<UInventoryComponent> InventoryComponent;
+	UPROPERTY()
+	TObjectPtr<UTimeAffectedComponent> TimeAffectedComponent;
+	UPROPERTY()
+	TObjectPtr<UBehaviorComponent> BehaviorComponent;
+	UPROPERTY()
+	TObjectPtr<UNeedsComponent> NeedsComponent;
 
 };

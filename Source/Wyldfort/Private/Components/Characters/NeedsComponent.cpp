@@ -5,12 +5,17 @@
 
 UNeedsComponent::UNeedsComponent()
 {
+    PrimaryComponentTick.bCanEverTick = true;
     EnableDebug(true);
+    DebugLog("NeedsComponent created", this);
 }
 
 void UNeedsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
+    Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
     Hunger = FMath::Max(0, Hunger - DecayRate * DeltaTime); // Update
+    DebugLog(FString::Printf(TEXT("Hunger Updated : %f"), Hunger), this);
     if (OnHungerChanged.IsBound()) // Notify for UI
         OnHungerChanged.Broadcast(Hunger);
     if (!bHungerCriticalFired && Hunger <= CriticalThreshold && OnHungerCritical.IsBound()) // Notify for behavior

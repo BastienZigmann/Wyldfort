@@ -36,7 +36,7 @@ private:
 	bool bThirstCriticalFired = false;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Needs")
-    float DecayRate = 2.0f; // units per second, high for testing
+    float DecayRate = 10.0f; // units per second, high for testing
 
     UPROPERTY(EditDefaultsOnly, Category = "Needs")
     float CriticalThreshold = 20.0f;
