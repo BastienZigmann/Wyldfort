@@ -6,7 +6,7 @@
 UNeedsComponent::UNeedsComponent()
 {
     PrimaryComponentTick.bCanEverTick = true;
-    EnableDebug(true);
+    EnableDebug(false);
     DebugLog("NeedsComponent created", this);
 }
 
@@ -15,14 +15,13 @@ void UNeedsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
     Hunger = FMath::Max(0, Hunger - DecayRate * DeltaTime); // Update
-    DebugLog(FString::Printf(TEXT("Hunger Updated : %f"), Hunger), this);
     if (OnHungerChanged.IsBound()) // Notify for UI
         OnHungerChanged.Broadcast(Hunger);
     if (!bHungerCriticalFired && Hunger <= CriticalThreshold && OnHungerCritical.IsBound()) // Notify for behavior
     {
+        DebugLog("Starving", this);
         bHungerCriticalFired = true;
         OnHungerCritical.Broadcast();
-        DebugLog("Starving", this);
     }
     
     Thirst = FMath::Max(0, Thirst - DecayRate * DeltaTime); // Update
@@ -30,9 +29,9 @@ void UNeedsComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
         OnThirstChanged.Broadcast(Thirst);
     if (!bThirstCriticalFired && Thirst <= CriticalThreshold && OnThirstCritical.IsBound()) // Notify for behavior
     {
+        DebugLog("In critical need of water", this);
         bThirstCriticalFired = true;
         OnThirstCritical.Broadcast();
-        DebugLog("In critical need of water", this);
     }
 }
 
