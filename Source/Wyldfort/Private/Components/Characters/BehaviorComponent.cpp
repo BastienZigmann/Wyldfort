@@ -5,6 +5,8 @@
 #include "Components/Characters/NeedsComponent.h"
 #include "Characters/BaseCharacter.h"
 #include "AI/States/BaseBehaviorState.h"
+#include "AI/States/Villager/VillagerIdleState.h"
+#include "AI/States/StatesTransitionInfo.h"
 
 UBehaviorComponent::UBehaviorComponent()
 {
@@ -32,15 +34,43 @@ void UBehaviorComponent::BeginPlay()
 void UBehaviorComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
     Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-    if (CurrentState) CurrentState->Update(DeltaTime);
+    if (!CurrentState) return;
+    CurrentState->Update(DeltaTime);
+    UBaseBehaviorState* NewState = CurrentState->GetNextState();
+    SetNewState(NewState);
 }
 
 void UBehaviorComponent::OnCriticalStarving() 
 {
     DebugLog("Hunger Critical", this);
+    FStatesTransitionInfo transitionInfo;
+    transitionInfo.isCriticalHungry = true;
+    
+    ComputeTransition(transitionInfo);
 }
 
 void UBehaviorComponent::OnCriticalThirsty()
 {
     DebugLog("ThirstCritical", this);
+    FStatesTransitionInfo transitionInfo;
+    transitionInfo.isCriticalThrist = true;
+
+    ComputeTransition(transitionInfo);
+}
+
+void UBehaviorComponent::SetNewState(UBaseBehaviorState* NewState)
+{
+    if (!NewState) return;
+    DebugLog("New State: ", this);
+    CurrentState->Exit();
+    CurrentState->MarkAsGarbage();
+    NewState->Init(GetOwnerTyped<ABaseCharacter>());
+    CurrentState = MoveTemp(NewState);
+    NewState->Enter();
+}
+
+void UBehaviorComponent::ComputeTransition(const FStatesTransitionInfo& transitionInfo)
+{
+    UBaseBehaviorState* NewState = CurrentState->HandleTransition(transitionInfo);
+    SetNewState(NewState);    
 }

@@ -7,6 +7,7 @@
 #include "BehaviorComponent.generated.h"
 
 class UBaseBehaviorState;
+struct FStatesTransitionInfo;
 
 UCLASS()
 class WYLDFORT_API UBehaviorComponent : public UBaseActorComponent
@@ -26,5 +27,8 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<UBaseBehaviorState> CurrentState;
+	void SetNewState(UBaseBehaviorState* NewState);
+
+	void ComputeTransition(const FStatesTransitionInfo& transitionInfo);
 
 };
