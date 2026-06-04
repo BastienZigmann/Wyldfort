@@ -16,11 +16,12 @@ class WYLDFORT_API UBehaviorComponent : public UBaseActorComponent
 public:
 	UBehaviorComponent();
 
-	
+	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	void SetState(UBaseBehaviorState newState);
 
 private:
+
 	UPROPERTY()
 	TObjectPtr<UBaseBehaviorState> CurrentState;
 

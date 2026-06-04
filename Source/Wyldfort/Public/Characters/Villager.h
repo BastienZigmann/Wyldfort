@@ -10,6 +10,7 @@ class ABaseBuilding;
 class UVillagerMovementComponent;
 class UTimeAffectedComponent;
 class UBehaviorComponent;
+class UNeedsComponent;
 
 UCLASS()
 class WYLDFORT_API AVillager : public ABaseCharacter
@@ -32,6 +33,9 @@ private:
 	TObjectPtr<UTimeAffectedComponent> TimeAffectedComponent;
 	UPROPERTY()
 	TObjectPtr<UBehaviorComponent> BehaviorComponent;
+	UPROPERTY()
+	TObjectPtr<UNeedsComponent> NeedsComponent;
+	
 	
 	void StartInitialMove();
 

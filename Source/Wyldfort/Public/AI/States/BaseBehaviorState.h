@@ -8,7 +8,6 @@
 
 class ABaseActor;
 
-
 UCLASS()
 class WYLDFORT_API UBaseBehaviorState : public UObject
 {
@@ -17,11 +16,11 @@ class WYLDFORT_API UBaseBehaviorState : public UObject
 public:
 	UBaseBehaviorState() {};
 	void Init(ABaseActor* InOwner) { Owner = InOwner; };
-protected:
 	virtual void Enter() {};
 	virtual void Update(float DeltaTime) {};
 	virtual void Exit() {};
 	
+protected:
 	template<typename T>
 	T* GetOwner() const {return Cast<T>(Owner);}
 	

@@ -5,6 +5,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/Characters/Villagers/VillagerMovementComponent.h"
 #include "Components/Characters/BehaviorComponent.h"
+#include "Components/Characters/NeedsComponent.h"
 #include "Components/Global/TimeAffectedComponent.h"
 
 AVillager::AVillager()
@@ -29,6 +30,12 @@ AVillager::AVillager()
     if (!BehaviorComponent) 
     {
         ErrorLog("Failed to create BehaviorComponent", this);
+        return;
+    }
+    NeedsComponent = CreateDefaultSubobject<UNeedsComponent>(TEXT("NeedsComponent"));
+    if (!NeedsComponent) 
+    {
+        ErrorLog("Failed to create NeedsComponent", this);
         return;
     }
 
