@@ -53,7 +53,7 @@ void UBehaviorComponent::OnCriticalThirsty()
 {
     DebugLog("ThirstCritical", this);
     FStatesTransitionInfo transitionInfo;
-    transitionInfo.isCriticalThrist = true;
+    transitionInfo.isCriticalThirst = true;
 
     ComputeTransition(transitionInfo);
 }
@@ -64,13 +64,15 @@ void UBehaviorComponent::SetNewState(UBaseBehaviorState* NewState)
     DebugLog("New State: ", this);
     CurrentState->Exit();
     CurrentState->MarkAsGarbage();
-    NewState->Init(GetOwnerTyped<ABaseCharacter>());
-    CurrentState = MoveTemp(NewState);
-    NewState->Enter();
+    CurrentState = NewState;
+    CurrentState->Init(GetOwnerTyped<ABaseCharacter>());
+    CurrentState->Enter();
 }
 
 void UBehaviorComponent::ComputeTransition(const FStatesTransitionInfo& transitionInfo)
 {
+    DebugLog("ComputingTransition", this);
+    if (!CurrentState) return;
     UBaseBehaviorState* NewState = CurrentState->HandleTransition(transitionInfo);
     SetNewState(NewState);    
 }

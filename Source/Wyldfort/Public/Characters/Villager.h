@@ -17,10 +17,13 @@ class WYLDFORT_API AVillager : public ABaseCharacter
 public:
 	AVillager();
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 
 	UVillagerMovementComponent* GetVillagerMovementComponent() const { return VillagerMovementComponent; };
 	void SetWorkBuilding(ABaseBuilding* Building);
-	
+	const ABaseBuilding* GetWorkBuilding() const {return Work;};
+	const bool HasWork() const {return GetWorkBuilding() != nullptr;};
+
 private:
 
 	UPROPERTY()

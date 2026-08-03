@@ -7,11 +7,13 @@
 #include "VillagerIdleState.generated.h"
 
 /**
- * 
+ * For now, stay in place
  */
 UCLASS()
 class WYLDFORT_API UVillagerIdleState : public UBaseBehaviorState
 {
 	GENERATED_BODY()
 	
+
+
 };

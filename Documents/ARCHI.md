@@ -7,17 +7,17 @@
 
 ## Structural Rules
 
-| Rule | Description |
-|---|---|
-| `Core/Bases/` | Pure UE-type wrappers only (`AActor`, `ACharacter`, `UActorComponent`, `UWorldSubsystem`, `UUserWidget`). Zero game-domain knowledge. Extractable to any UE project. |
-| `Core/Utils/` | Stateless utility mixins and helpers with no game knowledge. |
-| Domain base classes | Live **alongside their children**, not in `Core/`. Example: `BaseBuilding` lives in `Buildings/`. |
-| Types / Enums | Live **next to the domain they describe**. Example: `BuildingTypes` lives in `Buildings/`. |
-| `AI/Controllers/` | AIController subclasses only. Not components. |
-| `AI/States/` | Behavior state objects. Subfolders per character type. |
-| `Components/Characters/` | Generic character components (applicable to villagers, guards, adventurers...). |
-| `Components/Characters/Villagers/` | Components specific to villagers only. |
-| `Components/Global/` | Components usable by any actor regardless of type. |
+| Rule                               | Description                                                                                                                                                          |
+| ---------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Core/Bases/`                      | Pure UE-type wrappers only (`AActor`, `ACharacter`, `UActorComponent`, `UWorldSubsystem`, `UUserWidget`). Zero game-domain knowledge. Extractable to any UE project. |
+| `Core/Utils/`                      | Stateless utility mixins and helpers with no game knowledge.                                                                                                         |
+| Domain base classes                | Live **alongside their children**, not in `Core/`. Example: `BaseBuilding` lives in `Buildings/`.                                                                    |
+| Types / Enums                      | Live **next to the domain they describe**. Example: `BuildingTypes` lives in `Buildings/`.                                                                           |
+| `AI/Controllers/`                  | AIController subclasses only. Not components.                                                                                                                        |
+| `AI/States/`                       | Behavior state objects. Subfolders per character type.                                                                                                               |
+| `Components/Characters/`           | Generic character components (applicable to villagers, guards, adventurers...).                                                                                      |
+| `Components/Characters/Villagers/` | Components specific to villagers only.                                                                                                                               |
+| `Components/Global/`               | Components usable by any actor regardless of type.                                                                                                                   |
 
 ---
 
@@ -236,10 +236,10 @@ UAnimInstance
 
 ## Upcoming (not yet created)
 
-| File | Location | Purpose |
-|---|---|---|
-| `VillagerWorkState` | `AI/States/Villager/` | GOTO work building, DO gather loop, GO_BACK drop inventory |
-| `VillagerEatState` | `AI/States/Villager/` | GOTO FoodMarket, DO eat (timer), transition to next state |
-| `VillagerDrinkState` | `AI/States/Villager/` | GOTO Well, DO drink (timer), transition to next state |
-| `VillagerSleepState` | `AI/States/Villager/` | GOTO House, DO sleep (timer), transition to next state |
-| `NeedsComponent` | `Components/Characters/` | Hunger / Thirst / Energy floats with passive decay. Replaces raw fields on AVillager |
+| File                 | Location                 | Purpose                                                                              |
+| -------------------- | ------------------------ | ------------------------------------------------------------------------------------ |
+| `VillagerWorkState`  | `AI/States/Villager/`    | GOTO work building, DO gather loop, GO_BACK drop inventory                           |
+| `VillagerEatState`   | `AI/States/Villager/`    | GOTO FoodMarket, DO eat (timer), transition to next state                            |
+| `VillagerDrinkState` | `AI/States/Villager/`    | GOTO Well, DO drink (timer), transition to next state                                |
+| `VillagerSleepState` | `AI/States/Villager/`    | GOTO House, DO sleep (timer), transition to next state                               |
+| `NeedsComponent`     | `Components/Characters/` | Hunger / Thirst / Energy floats with passive decay. Replaces raw fields on AVillager |

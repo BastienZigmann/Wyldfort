@@ -11,6 +11,6 @@ struct FStatesTransitionInfo
 	GENERATED_BODY()
 
 	bool isCriticalHungry = false;
-	bool isCriticalThrist = false;
+	bool isCriticalThirst = false;
 };
 
